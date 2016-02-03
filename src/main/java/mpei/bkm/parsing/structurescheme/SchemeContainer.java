@@ -1,5 +1,6 @@
 package mpei.bkm.parsing.structurescheme;
 
+import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.model.structurescheme.Scheme;
 import mpei.bkm.parsing.structurescheme.visitors.SchemeCollector;
@@ -22,7 +23,7 @@ public class SchemeContainer {
 
     public Map<BKMClassType,List<ConceptAttribute>> undefinedConceptsInAttributes = new LinkedHashMap<BKMClassType, List<ConceptAttribute>>();
 
-    public SchemeContainer(Scheme scheme) {
+    public SchemeContainer(Scheme scheme) throws UnconvertableException {
         SchemeCollector schemeCollector = new SchemeCollector();
         schemeCollector.visit(scheme);
 

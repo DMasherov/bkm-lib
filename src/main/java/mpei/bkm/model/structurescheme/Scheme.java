@@ -3,18 +3,20 @@ package mpei.bkm.model.structurescheme;
 import mpei.bkm.model.lss.objectspecification.concept.Concept;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * BKM scheme.
  */
 public class Scheme {
     private String name;
-    private List<Concept> conceptList = new ArrayList<Concept>();
+    private Set<Concept> conceptSet = new HashSet<Concept>();
 
-    public Scheme(String name, List<Concept> conceptList) {
+    public Scheme(String name, Set<Concept> conceptSet) {
         this.name = name;
-        this.conceptList = conceptList;
+        this.conceptSet = conceptSet;
     }
 
     public Scheme(String name) {
@@ -28,11 +30,11 @@ public class Scheme {
         this.name = name;
     }
 
-    public List<Concept> getConceptList() {
-        return conceptList;
+    public Set<Concept> getConceptSet() {
+        return conceptSet;
     }
 
-    public void setConceptList(List<Concept> conceptList) {
-        this.conceptList = conceptList;
+    public void setConceptSet(Set<Concept> conceptSet) {
+        this.conceptSet = conceptSet;
     }
 }

@@ -15,7 +15,7 @@ public class Scheme2TextConverter implements Converter<Scheme,String> {
     public String convert(Scheme scheme) throws UnconvertableException {
         StringBuffer sb = new StringBuffer("SCHEME '" + scheme.getName() + "':");
         Concept2TextConverter concept2TextConverter = new Concept2TextConverter();
-        for (Concept c : scheme.getConceptList()) {
+        for (Concept c : scheme.getConceptSet()) {
             sb.append(System.getProperty("line.separator")).append(concept2TextConverter.convert(c)).append(".");
         }
         sb.append(System.getProperty("line.separator"));

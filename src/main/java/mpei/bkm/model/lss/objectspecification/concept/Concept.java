@@ -32,7 +32,18 @@ public abstract class Concept {
 
     @Override
     public boolean equals(Object o) {
+        if (o instanceof BKMClass && this instanceof BKMClass
+            && this.getName() != null
+            && this.getName().equals(((BKMClass) o).getName())) {
+            return true;
+        }
+        if (o instanceof BinaryLink && this instanceof BinaryLink
+                && this.getName() != null
+                && this.getName().equals(((BinaryLink) o).getName())) {
+            return true;
+        }
         return EqualsBuilder.reflectionEquals(this, o);
+
     }
 
     @Override

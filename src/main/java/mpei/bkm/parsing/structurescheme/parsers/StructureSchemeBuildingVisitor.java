@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<Object> {;
+public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<Object> {
     @Override
     public Scheme visitScheme(@NotNull StructureSchemeParser.SchemeContext ctx) {
         if (ctx.schemeName() == null)
@@ -39,7 +39,7 @@ public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<O
         for(StructureSchemeParser.ConceptSentenceContext conceptSentence: ctx.conceptSentence()) {
             Object concept = visit(conceptSentence);
             if (concept != null)
-                scheme.getConceptList().add((Concept) concept);
+                scheme.getConceptSet().add((Concept) concept);
         }
         return scheme;
     }
@@ -121,8 +121,8 @@ public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<O
     }
 
     @Override public ConceptType visitConceptName(@NotNull StructureSchemeParser.ConceptNameContext ctx) {
-        BKMClass BKMClass = new BKMClass(ctx.Name().getText());
-        return new BKMClassType(BKMClass);
+        BKMClass bkmClass = new BKMClass(ctx.Name().getText());
+        return new BKMClassType(bkmClass);
     }
     @Override public ConceptAttribute visitConceptAttribute(@NotNull StructureSchemeParser.ConceptAttributeContext ctx) {
         if (ctx.getChildCount() > 1) {
@@ -226,7 +226,9 @@ public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<O
         return new BinaryLink(
                 (ClassAttributeCondition)visit(ctx.classAttributeCondition(0)),
                 ctx.binaryLinkName().getText(),
-                ctx.intervalRestriction() == null ? null : (IntervalRestriction)visit(ctx.intervalRestriction()),
+                ctx.intervalRestriction() == null
+                        ? new IntervalRestriction(new StarAtomRestriction(),new StarAtomRestriction())
+                        : (IntervalRestriction)visit(ctx.intervalRestriction()),
                 (ClassAttributeCondition)visit(ctx.classAttributeCondition(1)),
                 ctx.attributes() == null ? null : (List<ConceptAttribute>)visit(ctx.attributes()));
     }

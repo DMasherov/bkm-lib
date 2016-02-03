@@ -1,5 +1,6 @@
 package mpei.bkm.parsing.structurescheme.visitors;
 
+import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.model.lss.objectspecification.concept.Concept;
 import mpei.bkm.model.lss.Attribute;
@@ -11,13 +12,15 @@ import mpei.bkm.model.structurescheme.Scheme;
 import mpei.bkm.parsing.structurescheme.SchemeCollections;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Class for traversing structure scheme tree and collecting BKM classes and links into {@link SchemeCollections}.
  */
 public class SchemeCollector implements ISchemeVisitor  {
     private SchemeCollections collections = new SchemeCollections();
-
+    private Set<String> conceptNames = new HashSet<String>();
     /**
      * Gets {@link SchemeCollections} for the given scheme.
      * @return {@link SchemeCollections}
@@ -75,11 +78,12 @@ public class SchemeCollector implements ISchemeVisitor  {
     }
 
     @Override
-    public void visit(BKMClass BKMClass) {
-        collections.allDeclaredBKMClasses.add(BKMClass);
-        for(Attribute attribute : BKMClass.getAttributes()) {
+    public void visit(BKMClass bkmClass) {
+        conceptNames.add(bkmClass.getName());
+        collections.allDeclaredBKMClasses.add(bkmClass);
+        for(Attribute attribute : bkmClass.getAttributes()) {
             if (attribute.getConcept() == null)
-                attribute.setConcept(BKMClass);
+                attribute.setConcept(bkmClass);
             visit(attribute);
         }
     }
@@ -93,8 +97,10 @@ public class SchemeCollector implements ISchemeVisitor  {
         }
     }
     @Override
-    public void visit(Scheme scheme) {
-        for(Concept concept : scheme.getConceptList()) {
+    public void visit(Scheme scheme) throws UnconvertableException {
+        if (scheme == null)
+            throw new UnconvertableException("Could not read scheme.\nUse \"SCHEME 'Name' <Concepts> END\" to specify a BKM scheme.");
+        for(Concept concept : scheme.getConceptSet()) {
             if (concept instanceof BKMClass) {
                 visit((BKMClass) concept);
             }
