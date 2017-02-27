@@ -1,0 +1,6 @@
+(NULL Dd) OR ((Bb ISA Cc) IMP(Aa ISA Bb)).
+(NULL Dd) OR(Bb ISA Cc).
+EXIST Dd.
+
+// There should be a goal statement
+// |= Aa ISA Cc
