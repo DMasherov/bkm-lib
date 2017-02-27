@@ -6,7 +6,7 @@ import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
 import mpei.bkm.model.lss.objectspecification.concepttypes.BKMClassType;
 import mpei.bkm.parsing.structurescheme.parsers.StructureSchemeParser;
 import mpei.bkm.parsing.structurescheme.parsers.StructureSchemeBuildingVisitor;
-import mpei.bkm.parsing.structurescheme.parsers.StructureSchemeErrorListener;
+import mpei.bkm.parsing.common.BKMParseErrorListener;
 import mpei.bkm.parsing.structurescheme.parsers.StructureSchemeLexer;
 import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.ConceptAttributePositioning;
 import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.Positioning;
@@ -36,8 +36,8 @@ public class Text2SchemeContainerConverter implements Converter<String,SchemeCon
 
         StructureSchemeParser parser = new StructureSchemeParser(new CommonTokenStream(lexer));
         parser.removeErrorListeners();
-        StructureSchemeErrorListener structureSchemeErrorListener = new StructureSchemeErrorListener();
-        parser.addErrorListener(structureSchemeErrorListener);
+        BKMParseErrorListener BKMParseErrorListener = new BKMParseErrorListener();
+        parser.addErrorListener(BKMParseErrorListener);
 
         StructureSchemeBuildingVisitor v = new StructureSchemeBuildingVisitor();
         Object oscheme = v.visit(parser.scheme());
@@ -46,7 +46,7 @@ public class Text2SchemeContainerConverter implements Converter<String,SchemeCon
             scheme = (Scheme) oscheme;
         }
         schemeContainer = new SchemeContainer(scheme);
-        errors = structureSchemeErrorListener.getErrorMessages();
+        errors = BKMParseErrorListener.getErrorMessages();
         return schemeContainer;
     }
 
