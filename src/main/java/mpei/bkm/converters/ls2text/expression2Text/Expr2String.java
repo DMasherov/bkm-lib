@@ -1,13 +1,9 @@
-package mpei.bkm.converters.lls12text.expression2Text;
+package mpei.bkm.converters.ls2text.expression2Text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lls1.Expression;
-import mpei.bkm.model.lls1.statement.*;
-import mpei.bkm.model.lls1.statement.Named;
 import mpei.bkm.model.lls1.terms.c.*;
-import mpei.bkm.model.lls1.terms.l.*;
-import mpei.bkm.model.lls1.terms.p.*;
 
 public class Expr2String implements Converter<Expression, String> {
 
@@ -32,13 +28,10 @@ public class Expr2String implements Converter<Expression, String> {
     private StringBuffer ettid(StringBuffer sb, Expression e) {
         if (simple) {
             if (e instanceof mpei.bkm.model.lls1.terms.c.Named) {
-                return sb.append(((mpei.bkm.model.lls1.terms.c.Named) e).getName());
+                return sb.append(((mpei.bkm.model.lls1.terms.c.Named) e).getBkmClass().getName());
             }
             if (e instanceof mpei.bkm.model.lls1.terms.l.Named) {
-                return sb.append(((mpei.bkm.model.lls1.terms.l.Named) e).getName());
-            }
-            if (e instanceof mpei.bkm.model.lls1.statement.Named) {
-                return sb.append(((mpei.bkm.model.lls1.statement.Named) e).getName());
+                return sb.append(((mpei.bkm.model.lls1.terms.l.Named) e).getBinaryLink().getName());
             }
 
             return sb.append(idWithType(e));
@@ -80,7 +73,6 @@ public class Expr2String implements Converter<Expression, String> {
         if (e instanceof mpei.bkm.model.lls1.statement.Imp) return ett(sb, (mpei.bkm.model.lls1.statement.Imp) e);
         if (e instanceof mpei.bkm.model.lls1.statement.IsaC) return ett(sb, (mpei.bkm.model.lls1.statement.IsaC) e);
         if (e instanceof mpei.bkm.model.lls1.statement.IsaL) return ett(sb, (mpei.bkm.model.lls1.statement.IsaL) e);
-        if (e instanceof mpei.bkm.model.lls1.statement.Named) return ett(sb, (mpei.bkm.model.lls1.statement.Named) e);
         if (e instanceof mpei.bkm.model.lls1.statement.Not) return ett(sb, (mpei.bkm.model.lls1.statement.Not) e);
         if (e instanceof mpei.bkm.model.lls1.statement.NullC) return ett(sb, (mpei.bkm.model.lls1.statement.NullC) e);
         if (e instanceof mpei.bkm.model.lls1.statement.NullL) return ett(sb, (mpei.bkm.model.lls1.statement.NullL) e);
@@ -103,7 +95,7 @@ public class Expr2String implements Converter<Expression, String> {
         return sb;
     }
     private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.terms.c.Named c) {
-        sb.append(c.getName());
+        sb.append(c.getBkmClass().getName());
         return sb;
     }
     private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.terms.c.Not c) {
@@ -141,7 +133,7 @@ public class Expr2String implements Converter<Expression, String> {
         return sb;
     }
     private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.terms.l.Named l) {
-        sb.append(l.getName());
+        sb.append(l.getBinaryLink().getName());
         return sb;
     }
     private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.terms.l.Not l) {
@@ -254,19 +246,15 @@ public class Expr2String implements Converter<Expression, String> {
     }
 
     private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.statement.IsaC s) {
-        ettid(sb, s.getChild());
+        ettid(sb, s.getSup());
         sb.append(" ISA ");
-        ettid(sb, s.getParent());
+        ettid(sb, s.getSub());
         return sb;
     }
     private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.statement.IsaL s) {
-        ettid(sb, s.getChild());
+        ettid(sb, s.getSup());
         sb.append(" ISA ");
-        ettid(sb, s.getParent());
-        return sb;
-    }
-    private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.statement.Named s) {
-        sb.append(s.getName());
+        ettid(sb, s.getSub());
         return sb;
     }
     private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.statement.Not s) {

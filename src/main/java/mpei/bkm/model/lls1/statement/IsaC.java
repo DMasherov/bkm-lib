@@ -5,30 +5,30 @@ import mpei.bkm.model.lls1.terms.c.C;
 
 public class IsaC extends Statement {
     @InnerPart
-    private C parent;
+    private C sub;
     @InnerPart
-    private C child;
+    private C sup;
 
-    public IsaC(C parent, C child) {
+    public IsaC(C sub, C sup) {
         super();
 
-        this.parent = parent;
-        this.child = child;
+        this.sub = sub;
+        this.sup = sup;
     }
 
-    public C getParent() {
-        return parent;
+    public C getSub() {
+        return sub;
     }
 
-    public void setParent(C parent) {
-        this.parent = parent;
+    public void setSub(C sub) {
+        this.sub = sub;
     }
 
-    public C getChild() {
-        return child;
+    public C getSup() {
+        return sup;
     }
 
-    public void setChild(C child) {
-        this.child = child;
+    public void setSup(C sup) {
+        this.sup = sup;
     }
 }

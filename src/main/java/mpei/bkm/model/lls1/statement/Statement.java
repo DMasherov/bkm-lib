@@ -7,6 +7,6 @@ import mpei.bkm.utils.identifier.IdentifierCreator;
 public abstract class Statement extends Expression {
     private static IdentifierCreator idcreator = TIdentifierCreator.getIdentifier();
     protected Statement() {
-        this.id = idcreator.getId();
+        this.id = idcreator.getIdentifierCreator();
     }
 }

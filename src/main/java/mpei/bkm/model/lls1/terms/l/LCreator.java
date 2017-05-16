@@ -10,9 +10,6 @@ public class LCreator {
     public static  Inv INV(L l) {
         return new Inv(l);
     }
-    public static  Named NAME(String name) {
-        return new Named(name);
-    }
     public static  Not NOT(L L) {
         return new Not(L);
     }

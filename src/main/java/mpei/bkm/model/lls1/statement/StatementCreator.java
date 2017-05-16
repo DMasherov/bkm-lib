@@ -37,9 +37,6 @@ public class StatementCreator{
     public static IsaL ISAL(L parent, L child) {
         return new IsaL(parent, child);
     }
-    public static Named NAME(String name) {
-        return new Named(name);
-    }
     public static Not NOT(Statement s) {
         return new Not(s);
     }

@@ -5,30 +5,30 @@ import mpei.bkm.model.lls1.terms.l.L;
 
 public class IsaL extends Statement {
     @InnerPart
-    private L parent;
+    private L sub;
     @InnerPart
-    private L child;
+    private L sup;
 
-    public IsaL(L parent, L child) {
+    public IsaL(L sub, L sup) {
         super();
 
-        this.parent = parent;
-        this.child = child;
+        this.sub = sub;
+        this.sup = sup;
     }
 
-    public L getParent() {
-        return parent;
+    public L getSub() {
+        return sub;
     }
 
-    public void setParent(L parent) {
-        this.parent = parent;
+    public void setSub(L sub) {
+        this.sub = sub;
     }
 
-    public L getChild() {
-        return child;
+    public L getSup() {
+        return sup;
     }
 
-    public void setChild(L child) {
-        this.child = child;
+    public void setSup(L sup) {
+        this.sup = sup;
     }
 }

@@ -1,5 +1,6 @@
 package mpei.bkm.model.lss.objectspecification.concept;
 
+import mpei.bkm.model.lls1.Expression;
 import mpei.bkm.model.lss.Attribute;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;

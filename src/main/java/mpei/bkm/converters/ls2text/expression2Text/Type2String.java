@@ -1,4 +1,4 @@
-package mpei.bkm.converters.lls12text.expression2Text;
+package mpei.bkm.converters.ls2text.expression2Text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;

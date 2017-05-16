@@ -2,9 +2,6 @@ package mpei.bkm.utils.identifier;
 
 import java.util.UUID;
 
-/**
- * Created by dmasherov on 2/23/17.
- */
 public class IdentifierFactory {
     public static IdentifierCreator<Integer> counter() {
         return new Counter();

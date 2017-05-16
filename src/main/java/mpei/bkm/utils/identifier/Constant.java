@@ -7,7 +7,7 @@ public class Constant<T> implements IdentifierCreator<T> {
         this.t = t;
     }
 
-    public Identifier<T> getId() {
+    public Identifier<T> getIdentifierCreator() {
         return new Identifier<T>(t);
     }
 }

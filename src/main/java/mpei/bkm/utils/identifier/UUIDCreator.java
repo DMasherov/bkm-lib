@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class UUIDCreator implements IdentifierCreator<UUID> {
 
-    public Identifier<UUID> getId() {
+    public Identifier<UUID> getIdentifierCreator() {
         return new Identifier<UUID>(UUID.randomUUID());
     }
 }

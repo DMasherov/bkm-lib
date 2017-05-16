@@ -11,9 +11,6 @@ public class CCreator {
     public static ConceptVariable CONCEPTVARIABLE(C c, String name) {
         return new ConceptVariable(c, name);
     }
-    public static Named NAME(String name) {
-        return new Named(name);
-    }
     public static Not NOT(C c) {
         return new Not(c);
     }

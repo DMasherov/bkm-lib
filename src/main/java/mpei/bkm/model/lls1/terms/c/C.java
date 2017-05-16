@@ -7,6 +7,6 @@ import mpei.bkm.utils.identifier.IdentifierCreator;
 public abstract class C  extends Term {
     private static IdentifierCreator idcreator = TIdentifierCreator.getIdentifier();
     protected C() {
-        this.id = idcreator.getId();
+        this.id = idcreator.getIdentifierCreator();
     }
 }
