@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Scheme2SqlConverterTest extends TestCase {
     public void testEquals() throws Exception {
-        String fileContent = FileUtils.readFileToString(new File(ClassLoader.getSystemResource("src/test/resources/Student1.ss").getFile()));
+        String fileContent = FileUtils.readFileToString(new File(ClassLoader.getSystemResource("src/test/resources/Student.ss").getFile()));
 
         Text2SchemeContainerConverter text2SchemeContainerConverter = new Text2SchemeContainerConverter();
         Scheme2TextConverter scheme2TextConverter = new Scheme2TextConverter();

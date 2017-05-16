@@ -55,7 +55,7 @@ public class Text2SchemeContainerConverterTest extends TestCase {
         TestCase.assertEquals(fileContent.replaceAll("[ \\t\\r\\n]", ""), converted.replaceAll("[ \\t\\r\\n]", ""));
     }
     public void testConvertStudent2Text() throws Exception {
-        String fileContent = FileUtils.readFileToString(new File(ClassLoader.getSystemResource("src/test/resources/Student1.ss").getFile()));
+        String fileContent = FileUtils.readFileToString(new File(ClassLoader.getSystemResource("src/test/resources/Student.ss").getFile()));
         String converted = convertToSchemeContainerAndBack(fileContent);
         TestCase.assertEquals(fileContent.replaceAll("[ \\t\\r\\n]", ""), converted.replaceAll("[ \\t\\r\\n]", ""));
     }
