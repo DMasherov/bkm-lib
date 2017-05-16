@@ -1,9 +1,15 @@
 package mpei.bkm.converters.ls2owl;
 
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.converters.ls2owl.LSOntology2OWLOntology;
 import mpei.bkm.converters.text2ls.Text2LSOntology;
 import mpei.bkm.model.lls1.LSOntology;
+import mpei.bkm.model.lls1.statement.IsaC;
+import mpei.bkm.model.lls1.terms.c.*;
+import mpei.bkm.model.lls1.terms.p.Each;
+import mpei.bkm.model.lls1.terms.p.Only;
+import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
+import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -11,6 +17,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -59,20 +66,69 @@ public class Ls2OwlTest {
             "ClassAssertion(ObjectUnionOf(<D> ObjectSomeValuesFrom(<related_to> <B>)) _:skolem)\n" +
             ")";
 
-    @Test
-    public void testSimpleOnt() throws
-            OWLOntologyStorageException, UnconvertableException,
-            NoSuchFieldException, IOException, IllegalAccessException, OWLOntologyCreationException {
-
+    protected OWLOntology textLS2OWLOntology(String lsText) throws UnconvertableException, NoSuchFieldException, IllegalAccessException {
         Text2LSOntology converter = new Text2LSOntology();
-        LSOntology lsOnt = converter.convert(SIMPLE_ONTOLOGY);
+        LSOntology lsOnt = converter.convert(lsText);
         Field f = LSOntology.class.getDeclaredField("name");
         f.setAccessible(true);
         f.set(lsOnt, "mine");
 
         LSOntology2OWLOntology ls2owlConverter = new LSOntology2OWLOntology();
-        OWLOntology convertedToOWL = ls2owlConverter.convert(lsOnt);
+        return ls2owlConverter.convert(lsOnt);
+    }
 
+    protected Set<OWLAxiom> getTBoxAxioms(String ontText) throws OWLOntologyCreationException {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(ontText.getBytes());
+        return manager.loadOntologyFromOntologyDocument(inputStream).getTBoxAxioms(Imports.EXCLUDED);
+    }
+
+    @Test
+    public void testComplexStatementConversion() throws OWLOntologyCreationException, UnconvertableException {
+        Named C1 = new Named(new BKMClass("C1"));
+        Named C2 = new Named(new BKMClass("C2"));
+        mpei.bkm.model.lls1.terms.l.Named R = new mpei.bkm.model.lls1.terms.l.Named(new BinaryLink("R"));
+
+        Or orC = new Or(C1, new Those(new Only(R, C2)));
+        And andC = new And(orC, new Not(new That(C2, new Each(R, C1))));
+
+        IsaC isa = new IsaC(C1, andC);
+
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntology owlOntology = manager.createOntology();
+        Statement2OWLConverter statement2OWLConverter = new Statement2OWLConverter(manager, owlOntology);
+
+        OWLAxiom axiomFromLS = (OWLAxiom) statement2OWLConverter.convert(isa).toArray()[0];
+
+        String complexClassExpression = "" +
+                "Ontology(<whatever>\n" +
+                "  SubClassOf(" +
+                "    <C1>" +
+                "    ObjectIntersectionOf(\n" +
+                "      ObjectUnionOf(\n" +
+                "        <C1>\n" +
+                "        ObjectAllValuesFrom(<R> <C2>)\n" +
+                "      )\n" +
+                "      ObjectComplementOf(\n" +
+                "        ObjectIntersectionOf(\n" +
+                "          <C2>\n" +
+                "          ObjectAllValuesFrom(<R> <C1>)\n" +
+                "        )\n" +
+                "      )\n" +
+                "    )\n" +
+                "  )\n" +
+                ")";
+        OWLAxiom axiomFromOWL = (OWLAxiom) getTBoxAxioms(complexClassExpression).toArray()[0];
+
+        Assert.assertEquals(axiomFromOWL, axiomFromLS);
+    }
+
+    @Test
+    public void testSimpleOnt() throws
+            OWLOntologyStorageException, UnconvertableException,
+            NoSuchFieldException, IOException, IllegalAccessException, OWLOntologyCreationException {
+
+        OWLOntology convertedToOWL = textLS2OWLOntology(SIMPLE_ONTOLOGY);
 
         Set<String> classNames = new HashSet<>(Arrays.asList("ABCDE".split("")));
         classNames.add("http://www.w3.org/2002/07/owl#Nothing");
@@ -80,22 +136,37 @@ public class Ls2OwlTest {
                 convertedToOWL.getClassesInSignature().stream().map(c -> c.getIRI().toString()).collect(Collectors.toSet()),
                 classNames);
 
+
         Assert.assertEquals(convertedToOWL.getObjectPropertiesInSignature().size(), 1);
         Assert.assertEquals(
                 convertedToOWL.getObjectPropertiesInSignature().toArray()[0].toString(),
                 "<related_to>");
 
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(SIMPLE_OWL_ONTOLOGY.getBytes());
-
-        Set<OWLAxiom> TBoxAxioms = manager.loadOntologyFromOntologyDocument(inputStream).getTBoxAxioms(Imports.EXCLUDED);
+        Set<OWLAxiom> TBoxAxioms = getTBoxAxioms(SIMPLE_OWL_ONTOLOGY);
 
         Assert.assertEquals(TBoxAxioms, convertedToOWL.getTBoxAxioms(Imports.EXCLUDED));
+    }
 
-//        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-//        convertedToOWL.saveOntology(new FunctionalSyntaxDocumentFormat(), byteStream);
-//        String result = byteStream.toString();
-//        System.out.println(result);
+    @Test
+    public void testNoAttributes()  throws
+            OWLOntologyStorageException, UnconvertableException,
+            NoSuchFieldException, IOException, IllegalAccessException, OWLOntologyCreationException {
 
+        String textNoAttributesOnt = FileUtils.readFileToString(
+                new File(ClassLoader.getSystemResource("robots_no_attributes.ls").getFile()));
+        OWLOntology convertedToOWL = textLS2OWLOntology(textNoAttributesOnt);
+
+        Assert.assertNotNull(convertedToOWL);
+
+        String robotsInOWL = FileUtils.readFileToString(
+                new File(ClassLoader.getSystemResource("robots_no_attributes.owl").getFile()));
+
+        Set<OWLAxiom> TBoxAxioms = getTBoxAxioms(robotsInOWL);
+
+        Set<OWLAxiom> r = new HashSet<>(TBoxAxioms);
+        r.removeAll(new HashSet(convertedToOWL.getTBoxAxioms(Imports.EXCLUDED)));
+        Assert.assertEquals(TBoxAxioms.size(), convertedToOWL.getTBoxAxioms(Imports.EXCLUDED).size());
+
+        Assert.assertEquals(TBoxAxioms, convertedToOWL.getTBoxAxioms(Imports.EXCLUDED));
     }
 }

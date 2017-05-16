@@ -1,0 +1,83 @@
+Prefix(:=<http://mpei.ru/bkm//2017/5/16/mine#>)
+Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
+Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
+Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
+Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
+Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
+
+Ontology(<http://mpei.ru/bkm//2017/5/16/mine>
+
+Declaration(Class(<Agent>))
+Declaration(Class(<ControlAgent1>))
+Declaration(Class(<ControlAgent2>))
+Declaration(Class(<Robot>))
+Declaration(Class(<RobotA>))
+Declaration(Class(<RobotB>))
+Declaration(Class(<RobotC>))
+Declaration(Class(<RobotD>))
+Declaration(ObjectProperty(<linked_to>))
+
+# Robot ISA Agent AND NOT (ControlAgent1 OR ControlAgent2) .
+SubClassOf(
+    <Robot>
+    ObjectIntersectionOf(
+        <Agent>
+        ObjectComplementOf(
+            ObjectUnionOf(
+                <ControlAgent1>
+                <ControlAgent2>)
+        )
+    )
+)
+
+# Robot ISA Agent AND NOT (ControlAgent1 OR ControlAgent2) .
+SubClassOf(
+    ObjectUnionOf(<ControlAgent1> <ControlAgent2>)
+    <Agent>
+)
+
+# EXIST ...
+ClassAssertion(<RobotA> _:genid2)
+ClassAssertion(<RobotD> _:genid3)
+ClassAssertion(<RobotC> _:genid4)
+ClassAssertion(<RobotB> _:genid5)
+ClassAssertion(<ControlAgent2> _:genid1)
+ClassAssertion(<ControlAgent1> _:genid6)
+
+# EACH RobotA NOT linked_to EACH RobotB AND ControlAgent2.
+SubClassOf(
+    <RobotA>
+    ObjectComplementOf(
+        ObjectAllValuesFrom(
+            <linked_to>
+            ObjectIntersectionOf(<ControlAgent2> <RobotB>))
+        )
+)
+
+# EACH RobotC NOT linked_to EACH RobotD AND ControlAgent1.
+SubClassOf(
+    <RobotC>
+    ObjectComplementOf(
+        ObjectAllValuesFrom(
+            <linked_to>
+            ObjectIntersectionOf(<ControlAgent1> <RobotD>))
+        )
+)
+
+# EACH RobotD linked_to SOME ControlAgent1.
+SubClassOf(
+    <RobotD>
+    ObjectSomeValuesFrom(<linked_to> <ControlAgent1>)
+)
+
+# EACH Agent linked_to EACH ControlAgent1 OR Agent THAT linked_to SOME ControlAgent1.
+SubClassOf(<Agent>
+    ObjectAllValuesFrom(
+        <linked_to>
+        ObjectIntersectionOf(
+            ObjectUnionOf(<Agent> <ControlAgent1>)
+            ObjectSomeValuesFrom(<linked_to> <ControlAgent1>))
+    )
+)
+
+)
