@@ -1,0 +1,158 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<robots.owl> rdf:type owl:Ontology .
+
+:Robot
+  rdf:type owl:Class ;
+  rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :RobotType ;
+    owl:someValuesFrom xsd:string
+  ] .
+
+:linked_to
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain :Robot ;
+  rdfs:range :Agent .
+
+:RobotType
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain :Robot ;
+  rdfs:range xsd:string .
+
+:Robot
+  rdfs:subClassOf [
+    owl:intersectionOf (
+      :Agent [
+        owl:complementOf [
+          owl:unionOf (
+            :ControlAgent1
+            :ControlAgent2
+          )
+        ]
+      ]
+    )
+  ] .
+
+[owl:unionOf (:ControlAgent1 :ControlAgent2)] rdfs:subClassOf :Agent .
+
+# :StartsWithA
+#   rdf:type rdfs:Datatype ;
+#   owl:onDatatype xsd:string ;
+#   owl:withRestrictions (
+#     [ xsd:pattern "A" ]
+#   ) .
+
+# Test
+# :abcdef
+#   rdf:type owl:DatatypeProperty ;
+#   rdfs:range xsd:string .
+# 
+# :z rdf:type :RobotZ .
+# :z :abcdef "BAXC"^^xsd:string .
+
+# :RobotZ
+#   rdfs:subClassOf [
+#     rdf:type owl:Restriction ;
+#     owl:onProperty :abcdef ;
+#     owl:allValuesFrom :StartsWithA 
+#   ] .
+
+:RobotA
+  rdfs:subClassOf :Robot ;
+  rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :RobotType ;
+    owl:someValuesFrom [
+      rdf:type rdfs:Datatype ;
+      owl:onDatatype xsd:string ;
+      owl:withRestrictions ( [ xsd:pattern "A" ])
+    ]
+  ] .
+
+:RobotB
+  rdfs:subClassOf :Robot .
+:RobotC
+  rdfs:subClassOf :Robot .
+:RobotD
+  rdfs:subClassOf :Robot .
+
+# :robot_dummy1
+#   rdf:type :Robot ;
+#   :RobotType "a"^^xsd:string .
+# :robot_dummy2
+#   rdf:type :Robot ;
+#   :RobotType "b"^^xsd:string .
+# :robot_dummy3
+#   rdf:type :Robot ;
+#   :RobotType "c"^^xsd:string .
+# :robot_dummy4
+#   rdf:type :Robot ;
+#   :RobotType "d"^^xsd:string .
+
+[ rdf:type :ControlAgent1 ] .
+[ rdf:type :ControlAgent2 ] .
+
+:RobotA
+  rdfs:subClassOf [
+    owl:complementOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty :linked_to ;
+      owl:allValuesFrom [
+        owl:intersectionOf (
+          :RobotB
+          :ControlAgent2
+        )
+      ]
+    ]
+ ] .
+
+:RobotC
+  rdfs:subClassOf [
+    owl:complementOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty :linked_to ;
+      owl:allValuesFrom :RobotD
+    ]
+ ] .
+
+:RobotD
+  rdfs:subClassOf [
+    owl:complementOf [
+      rdf:type owl:Restriction ;
+      owl:onProperty :linked_to ;
+      owl:someValuesFrom :ControlAgent1
+    ]
+ ] .
+
+:AgentThat
+  rdf:type owl:Class ;
+  owl:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :linked_to ;
+    owl:allValuesFrom :ControlAgent1
+  ] .
+
+:Agent
+  rdfs:subClassOf [
+    rdf:type owl:Restriction ;
+    owl:onProperty :linked_to ;
+    owl:allValuesFrom [
+      owl:unionOf (
+        :ControlAgent1
+        [
+          owl:intersectionOf (
+            :Agent
+            [
+              rdf:type owl:Restriction ;
+              owl:onProperty :linked_to ;
+              owl:allValuesFrom :ControlAgent1
+            ]
+          )
+        ]
+      )
+    ]
+  ] .
