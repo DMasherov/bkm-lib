@@ -4,7 +4,7 @@
   <groupId>mpei.bkm</groupId>
   <artifactId>lib</artifactId>
   <name>Binary Knowledge Model Library</name>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.0-SNAPSHOT</version>
   <description>Binary Knowledge Model parsers, converters and model</description>
   <build>
     <testResources>
@@ -42,7 +42,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -53,7 +53,8 @@
     </dependency>
   </dependencies>
   <properties>
-    <antlr-version>4.5</antlr-version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 </project>
 
