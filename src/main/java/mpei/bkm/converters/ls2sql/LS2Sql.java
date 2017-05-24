@@ -9,7 +9,6 @@ import mpei.bkm.model.structure.datatypespecification.datatypes.EnumType;
 import mpei.bkm.model.structure.datatypespecification.datatypes.PrimitiveDataType;
 import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
 import mpei.bkm.model.structure.objectspecification.concepttypes.*;
-import mpei.bkm.parsing.structurescheme.SchemeContainer;
 
 import java.util.*;
 
@@ -17,7 +16,7 @@ import java.util.*;
  * Class creates a number of SQL statements which correspond to the SQL schema from the structure scheme container.
  * <p>
  * Each BKM class and link are converted to a <code>CREATE TABLE</code> statement.
- * @see SchemeContainer
+ * @see LSOntology
  */
 public class LS2Sql implements Converter<LSOntology, String> {
     public static Map<Enum,String> primitiveDataType2SqlType = new HashMap<Enum, String>();

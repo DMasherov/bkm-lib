@@ -26,7 +26,7 @@ import mpei.bkm.model.structure.objectspecification.intervalrestrictions.AtomRes
 import mpei.bkm.model.structure.objectspecification.intervalrestrictions.IntervalRestriction;
 import mpei.bkm.model.structure.objectspecification.intervalrestrictions.StarAtomRestriction;
 import mpei.bkm.model.structure.objectspecification.intervalrestrictions.number.*;
-import mpei.bkm.parsing.lls1.mapping.ExprMapping;
+import mpei.bkm.parsing.ls.mapping.ExprMapping;
 import mpei.bkm.parsing.ls.parseinfo.ConceptAttributePositioning;
 import mpei.bkm.parsing.ls.parseinfo.DataTypeAttributePositioning;
 import mpei.bkm.parsing.ls.parseinfo.Positioning;
