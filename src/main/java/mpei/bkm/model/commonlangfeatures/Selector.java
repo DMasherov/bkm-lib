@@ -1,17 +1,24 @@
 package mpei.bkm.model.commonlangfeatures;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Selector is the composition of attributes.
  * The class <code>Selector</code> contains the list of attributes in a selector
- * (a selector is the composition of attributes).
  */
 public class Selector {
     private List<String> selects = new ArrayList<String>();
 
     public Selector(List<String> selects) {
         this.selects = selects;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Selector(String... selects) {
+        this(Arrays.asList(selects));
     }
 
     public List<String> getSelects() {

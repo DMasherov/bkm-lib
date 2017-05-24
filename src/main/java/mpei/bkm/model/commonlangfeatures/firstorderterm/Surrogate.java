@@ -3,7 +3,7 @@ package mpei.bkm.model.commonlangfeatures.firstorderterm;
 /**
  * Surrogate as object identifier.
  */
-public class Surrogate {
+public class Surrogate extends Term {
     private String name;
 
     public Surrogate(String name) {

@@ -1,16 +1,13 @@
 package mpei.bkm.model.lss.objectspecification.concept;
 
-import mpei.bkm.model.lls1.Expression;
 import mpei.bkm.model.lss.Attribute;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Concept {
-    private String name;
-    private List<? extends Attribute> attributes = new ArrayList<Attribute>();
+    protected String name;
+    protected List<? extends Attribute> attributes = new ArrayList<>();
 
     public Concept(String name, List<? extends Attribute> attributes) {
         this.name = name;
@@ -33,22 +30,20 @@ public abstract class Concept {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof BKMClass && this instanceof BKMClass
-            && this.getName() != null
-            && this.getName().equals(((BKMClass) o).getName())) {
-            return true;
-        }
-        if (o instanceof BinaryLink && this instanceof BinaryLink
-                && this.getName() != null
-                && this.getName().equals(((BinaryLink) o).getName())) {
-            return true;
-        }
-        return EqualsBuilder.reflectionEquals(this, o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Concept concept = (Concept) o;
+
+        if (name != null ? !name.equals(concept.name) : concept.name != null) return false;
+        return attributes != null ? attributes.equals(concept.attributes) : concept.attributes == null;
 
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (attributes != null ? attributes.hashCode() : 0);
+        return result;
     }
 }

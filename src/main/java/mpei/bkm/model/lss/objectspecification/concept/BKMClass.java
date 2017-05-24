@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BKMClass extends Concept {
-    private BKMClass isa;
+    protected BKMClass isa;
 
     public BKMClass(String name) {
         super(name);
@@ -23,4 +23,13 @@ public class BKMClass extends Concept {
         return isa;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof BKMClass && super.equals(o);
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

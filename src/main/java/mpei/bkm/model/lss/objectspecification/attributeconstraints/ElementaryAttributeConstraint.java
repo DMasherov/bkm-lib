@@ -1,15 +1,15 @@
-package mpei.bkm.model.lss.objectspecification.attributeconditions;
+package mpei.bkm.model.lss.objectspecification.attributeconstraints;
 
 import mpei.bkm.model.commonlangfeatures.Selector;
 
-public class ElementaryAttributeCondition {
-    public static enum BinaryOperator {
+public class ElementaryAttributeConstraint {
+    public enum BinaryOperator {
         EQ, NOTEQ , LT , LE , GT , GE
     }
     private Selector left;
     private BinaryOperator binaryOperator;
     private Selector right;
-    public ElementaryAttributeCondition(Selector left, BinaryOperator binaryOperator, Selector right) {
+    public ElementaryAttributeConstraint(Selector left, BinaryOperator binaryOperator, Selector right) {
         this.left = left;
         this.binaryOperator = binaryOperator;
         this.right = right;

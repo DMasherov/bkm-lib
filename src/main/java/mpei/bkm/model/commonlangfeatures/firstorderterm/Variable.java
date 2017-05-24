@@ -3,7 +3,7 @@ package mpei.bkm.model.commonlangfeatures.firstorderterm;
 /**
  * Variable as a term in first-order logic.
  */
-public class Variable {
+public class Variable extends Term {
     private String name;
 
     public Variable(String name) {

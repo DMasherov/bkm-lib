@@ -47,11 +47,20 @@ public class Attribute<T extends Type> {
 
     @Override
     public boolean equals(Object o) {
-        return EqualsBuilder.reflectionEquals(this, o);
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Attribute<?> attribute = (Attribute<?>) o;
+
+        if (name != null ? !name.equals(attribute.name) : attribute.name != null) return false;
+        return type != null ? type.equals(attribute.type) : attribute.type == null;
+
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
     }
 }

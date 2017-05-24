@@ -1,16 +1,15 @@
 package mpei.bkm.model.lss.objectspecification.concept;
 
 import mpei.bkm.model.lss.Attribute;
-import mpei.bkm.model.lss.objectspecification.attributeconditions.ClassAttributeCondition;
+import mpei.bkm.model.lss.objectspecification.attributeconstraints.ClassAttributeCondition;
 import mpei.bkm.model.lss.objectspecification.intervalrestrictions.IntervalRestriction;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryLink extends Concept {
-    private ClassAttributeCondition left;
-    private IntervalRestriction restriction;
-    private ClassAttributeCondition right;
+    protected ClassAttributeCondition left;
+    protected IntervalRestriction restriction;
+    protected ClassAttributeCondition right;
 
 
     public BinaryLink(String name) {
@@ -36,5 +35,13 @@ public class BinaryLink extends Concept {
         return right;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof BinaryLink && super.equals(o);
+    }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -3,7 +3,7 @@ package mpei.bkm.model.commonlangfeatures.firstorderterm;
 /**
  * Constant as a term in first-order logic.
  */
-public class Constant {
+public class Constant extends Term {
     private String name;
 
     public Constant(String name) {
