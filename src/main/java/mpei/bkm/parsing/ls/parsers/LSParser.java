@@ -33,8 +33,8 @@ public class LSParser extends Parser {
 		RULE_fullIntervalRestriction = 22, RULE_contractedIntervalRestriction = 23, 
 		RULE_atomRestriction = 24, RULE_dataType = 25, RULE_primitiveType = 26, 
 		RULE_rangeDataType = 27, RULE_labeledDataType = 28, RULE_conceptType = 29, 
-		RULE_attributeConstraints = 30, RULE_elementaryAttributeConstraint = 31, 
-		RULE_selector = 32, RULE_className = 33, RULE_binaryLinkName = 34, RULE_attributeValue = 35, 
+		RULE_attributeConstraints = 30, RULE_constraint = 31, RULE_selector = 32, 
+		RULE_className = 33, RULE_binaryLinkName = 34, RULE_attributeValue = 35, 
 		RULE_definedTypeName = 36, RULE_variable = 37, RULE_surrogate = 38, RULE_binaryOperator = 39, 
 		RULE_dataValue = 40, RULE_trueorfalse = 41, RULE_number = 42, RULE_string = 43;
 	public static final String[] ruleNames = {
@@ -44,9 +44,9 @@ public class LSParser extends Parser {
 		"dataTypeAttribute", "conceptAttribute", "classAttributeConstraint", "intervalRestriction", 
 		"fullIntervalRestriction", "contractedIntervalRestriction", "atomRestriction", 
 		"dataType", "primitiveType", "rangeDataType", "labeledDataType", "conceptType", 
-		"attributeConstraints", "elementaryAttributeConstraint", "selector", "className", 
-		"binaryLinkName", "attributeValue", "definedTypeName", "variable", "surrogate", 
-		"binaryOperator", "dataValue", "trueorfalse", "number", "string"
+		"attributeConstraints", "constraint", "selector", "className", "binaryLinkName", 
+		"attributeValue", "definedTypeName", "variable", "surrogate", "binaryOperator", 
+		"dataValue", "trueorfalse", "number", "string"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
@@ -3835,11 +3835,11 @@ public class LSParser extends Parser {
 	}
 
 	public static class AttributeConstraintsContext extends ParserRuleContext {
-		public List<ElementaryAttributeConstraintContext> elementaryAttributeConstraint() {
-			return getRuleContexts(ElementaryAttributeConstraintContext.class);
+		public List<ConstraintContext> constraint() {
+			return getRuleContexts(ConstraintContext.class);
 		}
-		public ElementaryAttributeConstraintContext elementaryAttributeConstraint(int i) {
-			return getRuleContext(ElementaryAttributeConstraintContext.class,i);
+		public ConstraintContext constraint(int i) {
+			return getRuleContext(ConstraintContext.class,i);
 		}
 		public AttributeConstraintsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -3870,7 +3870,7 @@ public class LSParser extends Parser {
 			setState(482);
 			match(T__8);
 			setState(483);
-			elementaryAttributeConstraint();
+			constraint();
 			setState(488);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -3880,7 +3880,7 @@ public class LSParser extends Parser {
 				setState(484);
 				match(T__34);
 				setState(485);
-				elementaryAttributeConstraint();
+				constraint();
 				}
 				}
 				setState(490);
@@ -3902,7 +3902,7 @@ public class LSParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ElementaryAttributeConstraintContext extends ParserRuleContext {
+	public static class ConstraintContext extends ParserRuleContext {
 		public List<SelectorContext> selector() {
 			return getRuleContexts(SelectorContext.class);
 		}
@@ -3915,28 +3915,28 @@ public class LSParser extends Parser {
 		public AttributeValueContext attributeValue() {
 			return getRuleContext(AttributeValueContext.class,0);
 		}
-		public ElementaryAttributeConstraintContext(ParserRuleContext parent, int invokingState) {
+		public ConstraintContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_elementaryAttributeConstraint; }
+		@Override public int getRuleIndex() { return RULE_constraint; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof LSListener ) ((LSListener)listener).enterElementaryAttributeConstraint(this);
+			if ( listener instanceof LSListener ) ((LSListener)listener).enterConstraint(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof LSListener ) ((LSListener)listener).exitElementaryAttributeConstraint(this);
+			if ( listener instanceof LSListener ) ((LSListener)listener).exitConstraint(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof LSVisitor ) return ((LSVisitor<? extends T>)visitor).visitElementaryAttributeConstraint(this);
+			if ( visitor instanceof LSVisitor ) return ((LSVisitor<? extends T>)visitor).visitConstraint(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final ElementaryAttributeConstraintContext elementaryAttributeConstraint() throws RecognitionException {
-		ElementaryAttributeConstraintContext _localctx = new ElementaryAttributeConstraintContext(_ctx, getState());
-		enterRule(_localctx, 62, RULE_elementaryAttributeConstraint);
+	public final ConstraintContext constraint() throws RecognitionException {
+		ConstraintContext _localctx = new ConstraintContext(_ctx, getState());
+		enterRule(_localctx, 62, RULE_constraint);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{

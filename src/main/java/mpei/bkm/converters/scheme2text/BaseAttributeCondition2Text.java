@@ -1,6 +1,6 @@
 package mpei.bkm.converters.scheme2text;
 
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.ElementaryAttributeConstraint;
+import mpei.bkm.model.lss.objectspecification.attributeconstraints.Constraint;
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
@@ -15,20 +15,20 @@ public class BaseAttributeCondition2Text implements Converter<AttributeConstrain
         sb.append("(");
         boolean first = true;
 
-        for (ElementaryAttributeConstraint elementaryAttributeCondition : attributeConstraints.getElementaryAttributeConstraint()) {
+        for (Constraint constraint : attributeConstraints.getConstraints()) {
             if (!first) {
                 sb.append(",");
             }
             first = false;
-            sb.append(StringUtils.join(elementaryAttributeCondition.getLeft().getSelects(), ";"));
-            ElementaryAttributeConstraint.BinaryOperator op = elementaryAttributeCondition.getBinaryOperator();
-            if (op == ElementaryAttributeConstraint.BinaryOperator.EQ) sb.append("=");
-            else if (op == ElementaryAttributeConstraint.BinaryOperator.NOTEQ) sb.append("=/=");
-            else if (op == ElementaryAttributeConstraint.BinaryOperator.LT) sb.append("<");
-            else if (op == ElementaryAttributeConstraint.BinaryOperator.LE) sb.append("<=");
-            else if (op == ElementaryAttributeConstraint.BinaryOperator.GT) sb.append(">");
-            else if (op == ElementaryAttributeConstraint.BinaryOperator.GE) sb.append(">=");
-            sb.append(StringUtils.join(elementaryAttributeCondition.getRight().getSelects(), ";"));
+            sb.append(StringUtils.join(constraint.getLeft().getSelects(), ";"));
+            Constraint.BinaryOperator op = constraint.getBinaryOperator();
+            if (op == Constraint.BinaryOperator.EQ) sb.append("=");
+            else if (op == Constraint.BinaryOperator.NOTEQ) sb.append("=/=");
+            else if (op == Constraint.BinaryOperator.LT) sb.append("<");
+            else if (op == Constraint.BinaryOperator.LE) sb.append("<=");
+            else if (op == Constraint.BinaryOperator.GT) sb.append(">");
+            else if (op == Constraint.BinaryOperator.GE) sb.append(">=");
+            sb.append(StringUtils.join(constraint.getRight().getSelects(), ";"));
 
         }
         sb.append(")");

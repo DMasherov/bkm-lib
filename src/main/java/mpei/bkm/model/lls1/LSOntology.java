@@ -3,18 +3,13 @@ package mpei.bkm.model.lls1;
 import mpei.bkm.model.lls1.statement.Statement;
 import mpei.bkm.model.lls1.terms.c.WithAttributes;
 import mpei.bkm.model.lss.Attribute;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.ElementaryAttributeConstraint;
-import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
+import mpei.bkm.model.lss.objectspecification.attributeconstraints.Constraint;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
 import mpei.bkm.model.lss.objectspecification.concept.Concept;
 import mpei.bkm.model.lss.objectspecification.concepttypes.BKMClassType;
-import mpei.bkm.model.lss.objectspecification.concepttypes.ConceptType;
-import org.apache.http.protocol.HttpProcessorBuilder;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Representation of a LS ontology.
@@ -113,10 +108,10 @@ public class LSOntology {
 
         for (WithAttributes c : getClassesTerms()) {
             if (c.getAttributeConstraints() == null ||
-                    c.getAttributeConstraints().getElementaryAttributeConstraint() == null)
+                    c.getAttributeConstraints().getConstraints() == null)
                 continue;
-            List<ElementaryAttributeConstraint> constraints = c.getAttributeConstraints().getElementaryAttributeConstraint();
-            for (ElementaryAttributeConstraint a : constraints) {
+            List<Constraint> constraints = c.getAttributeConstraints().getConstraints();
+            for (Constraint a : constraints) {
                 if (a.getLeft().isAtomic()) {
                     String attrName = a.getLeft().getSelects().get(0);
                     if (!attributeNamesOf.containsKey(attrName)) {

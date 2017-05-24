@@ -527,11 +527,11 @@ public interface LSVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAttributeConstraints(LSParser.AttributeConstraintsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link LSParser#elementaryAttributeConstraint}.
+	 * Visit a parse tree produced by {@link LSParser#constraint}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElementaryAttributeConstraint(LSParser.ElementaryAttributeConstraintContext ctx);
+	T visitConstraint(LSParser.ConstraintContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LSParser#selector}.
 	 * @param ctx the parse tree

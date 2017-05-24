@@ -887,15 +887,15 @@ public interface LSListener extends ParseTreeListener {
 	 */
 	void exitAttributeConstraints(LSParser.AttributeConstraintsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LSParser#elementaryAttributeConstraint}.
+	 * Enter a parse tree produced by {@link LSParser#constraint}.
 	 * @param ctx the parse tree
 	 */
-	void enterElementaryAttributeConstraint(LSParser.ElementaryAttributeConstraintContext ctx);
+	void enterConstraint(LSParser.ConstraintContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LSParser#elementaryAttributeConstraint}.
+	 * Exit a parse tree produced by {@link LSParser#constraint}.
 	 * @param ctx the parse tree
 	 */
-	void exitElementaryAttributeConstraint(LSParser.ElementaryAttributeConstraintContext ctx);
+	void exitConstraint(LSParser.ConstraintContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LSParser#selector}.
 	 * @param ctx the parse tree

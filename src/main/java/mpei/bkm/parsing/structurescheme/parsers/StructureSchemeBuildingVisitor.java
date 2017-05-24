@@ -163,14 +163,14 @@ public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<O
         }
         return new Selector(values);
     }
-    @Override public ElementaryAttributeConstraint.BinaryOperator visitBinaryOperator(@NotNull StructureSchemeParser.BinaryOperatorContext ctx) {
-        ElementaryAttributeConstraint.BinaryOperator binaryoperator = null;
-        if (ctx.EQ() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.EQ;
-        if (ctx.NOTEQ() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.NOTEQ;
-        if (ctx.GE() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.GE;
-        if (ctx.GT() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.GT;
-        if (ctx.LE() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.LE;
-        if (ctx.LT() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.LT;
+    @Override public Constraint.BinaryOperator visitBinaryOperator(@NotNull StructureSchemeParser.BinaryOperatorContext ctx) {
+        Constraint.BinaryOperator binaryoperator = null;
+        if (ctx.EQ() != null) binaryoperator = Constraint.BinaryOperator.EQ;
+        if (ctx.NOTEQ() != null) binaryoperator = Constraint.BinaryOperator.NOTEQ;
+        if (ctx.GE() != null) binaryoperator = Constraint.BinaryOperator.GE;
+        if (ctx.GT() != null) binaryoperator = Constraint.BinaryOperator.GT;
+        if (ctx.LE() != null) binaryoperator = Constraint.BinaryOperator.LE;
+        if (ctx.LT() != null) binaryoperator = Constraint.BinaryOperator.LT;
         return binaryoperator;
     }
     @Override public AtomRestriction visitAtomRestriction(@NotNull StructureSchemeParser.AtomRestrictionContext ctx) {
@@ -207,13 +207,13 @@ public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<O
         }
         return new IntervalRestriction(left,right);
     }
-    @Override public ElementaryAttributeConstraint visitElementaryAttributeCondition(@NotNull StructureSchemeParser.ElementaryAttributeConditionContext ctx) {
-        return new ElementaryAttributeConstraint((Selector)visit(ctx.selector(0)), (ElementaryAttributeConstraint.BinaryOperator) visit(ctx.binaryOperator()),(Selector)visit(ctx.selector(1)));
+    @Override public Constraint visitElementaryAttributeCondition(@NotNull StructureSchemeParser.ElementaryAttributeConditionContext ctx) {
+        return new Constraint((Selector)visit(ctx.selector(0)), (Constraint.BinaryOperator) visit(ctx.binaryOperator()),(Selector)visit(ctx.selector(1)));
     }
     @Override public AttributeConstraints visitBaseAttributeCondition(@NotNull StructureSchemeParser.BaseAttributeConditionContext ctx) {
-        List<ElementaryAttributeConstraint> elementaryAttributeConditions = new ArrayList<ElementaryAttributeConstraint>();
+        List<Constraint> elementaryAttributeConditions = new ArrayList<Constraint>();
         for (StructureSchemeParser.ElementaryAttributeConditionContext elementaryAttributeCondition : ctx.elementaryAttributeCondition()) {
-            elementaryAttributeConditions.add((ElementaryAttributeConstraint)visit(elementaryAttributeCondition));
+            elementaryAttributeConditions.add((Constraint)visit(elementaryAttributeCondition));
         }
         return new AttributeConstraints(elementaryAttributeConditions);
     }

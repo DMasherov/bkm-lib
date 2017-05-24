@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AttributeConstraints {
-    private List<ElementaryAttributeConstraint> elementaryAttributeConstraint = new ArrayList<ElementaryAttributeConstraint>();
+    private List<Constraint> constraints = new ArrayList<>();
 
-    public AttributeConstraints(List<ElementaryAttributeConstraint> elementaryAttributeConstraint) {
-        this.elementaryAttributeConstraint = elementaryAttributeConstraint;
+    public AttributeConstraints(List<Constraint> constraints) {
+        this.constraints = constraints;
     }
 
-    public List<ElementaryAttributeConstraint> getElementaryAttributeConstraint() {
-        return elementaryAttributeConstraint;
+    public List<Constraint> getConstraints() {
+        return constraints;
     }
 
     @Override
@@ -21,12 +21,12 @@ public class AttributeConstraints {
 
         AttributeConstraints that = (AttributeConstraints) o;
 
-        return elementaryAttributeConstraint != null ? elementaryAttributeConstraint.equals(that.elementaryAttributeConstraint) : that.elementaryAttributeConstraint == null;
+        return constraints != null ? constraints.equals(that.constraints) : that.constraints == null;
 
     }
 
     @Override
     public int hashCode() {
-        return elementaryAttributeConstraint != null ? elementaryAttributeConstraint.hashCode() : 0;
+        return constraints != null ? constraints.hashCode() : 0;
     }
 }

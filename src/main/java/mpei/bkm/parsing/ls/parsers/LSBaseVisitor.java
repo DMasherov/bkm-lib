@@ -555,7 +555,7 @@ public class LSBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements LSV
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitElementaryAttributeConstraint(LSParser.ElementaryAttributeConstraintContext ctx) { return visitChildren(ctx); }
+	@Override public T visitConstraint(LSParser.ConstraintContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

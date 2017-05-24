@@ -15,7 +15,7 @@ import mpei.bkm.model.lss.UnresolvedType;
 import mpei.bkm.model.lss.datatypespecification.datatypes.*;
 import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
 import mpei.bkm.model.lss.objectspecification.attributeconstraints.ClassAttributeCondition;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.ElementaryAttributeConstraint;
+import mpei.bkm.model.lss.objectspecification.attributeconstraints.Constraint;
 import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
 import mpei.bkm.model.lss.objectspecification.attributes.DataTypeAttribute;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
@@ -38,15 +38,7 @@ import java.util.regex.Pattern;
 
 public class LSBuildingVisitor extends LSBaseVisitor {
     protected LSOntology ont;
-
     private List<Expression> expressions = new ArrayList<>();
-    private Set<BKMClass> usedClasses = new HashSet<>();
-
-    private boolean ontIsCorrect = false;
-
-    public boolean isOntIsCorrect() {
-        return ontIsCorrect;
-    }
 
     @Override
     public LSOntology visitOntology(LSParser.OntologyContext ctx) {
@@ -592,7 +584,6 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     @Override
     public ConceptType visitConceptName(LSParser.ConceptNameContext ctx) {
         BKMClass bkmClass = new BKMClass(ctx.Name().getText());
-        usedClasses.add(bkmClass);
         return new BKMClassType(bkmClass);
     }
 
@@ -628,14 +619,14 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     }
 
     @Override
-    public ElementaryAttributeConstraint.BinaryOperator visitBinaryOperator(LSParser.BinaryOperatorContext ctx) {
-        ElementaryAttributeConstraint.BinaryOperator binaryoperator = null;
-        if (ctx.EQ() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.EQ;
-        if (ctx.NOTEQ() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.NOTEQ;
-        if (ctx.GE() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.GE;
-        if (ctx.GT() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.GT;
-        if (ctx.LE() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.LE;
-        if (ctx.LT() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.LT;
+    public Constraint.BinaryOperator visitBinaryOperator(LSParser.BinaryOperatorContext ctx) {
+        Constraint.BinaryOperator binaryoperator = null;
+        if (ctx.EQ() != null) binaryoperator = Constraint.BinaryOperator.EQ;
+        if (ctx.NOTEQ() != null) binaryoperator = Constraint.BinaryOperator.NOTEQ;
+        if (ctx.GE() != null) binaryoperator = Constraint.BinaryOperator.GE;
+        if (ctx.GT() != null) binaryoperator = Constraint.BinaryOperator.GT;
+        if (ctx.LE() != null) binaryoperator = Constraint.BinaryOperator.LE;
+        if (ctx.LT() != null) binaryoperator = Constraint.BinaryOperator.LT;
         return binaryoperator;
     }
 
@@ -676,7 +667,7 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     }
 
     @Override
-    public ElementaryAttributeConstraint visitElementaryAttributeConstraint(LSParser.ElementaryAttributeConstraintContext ctx) {
+    public Constraint visitConstraint(LSParser.ConstraintContext ctx) {
         Selector rhs;
         if (ctx.selector(1) != null) {
             rhs = (Selector) visit(ctx.selector(1));
@@ -685,19 +676,18 @@ public class LSBuildingVisitor extends LSBaseVisitor {
             rhs = new Selector(ctx.attributeValue().getText());
         }
 
-        return new ElementaryAttributeConstraint(
+        return new Constraint(
                 (Selector) visit(ctx.selector(0)),
-                (ElementaryAttributeConstraint.BinaryOperator) visit(ctx.binaryOperator()),
+                (Constraint.BinaryOperator) visit(ctx.binaryOperator()),
                 rhs
         );
     }
 
     @Override
     public AttributeConstraints visitAttributeConstraints(LSParser.AttributeConstraintsContext ctx) {
-        List<ElementaryAttributeConstraint> eacs = new ArrayList<>();
-        for (LSParser.ElementaryAttributeConstraintContext
-                elementaryAttributeCondition : ctx.elementaryAttributeConstraint()) {
-            eacs.add((ElementaryAttributeConstraint) visit(elementaryAttributeCondition));
+        List<Constraint> eacs = new ArrayList<>();
+        for (LSParser.ConstraintContext constraint : ctx.constraint()) {
+            eacs.add((Constraint) visit(constraint));
         }
         return new AttributeConstraints(eacs);
     }

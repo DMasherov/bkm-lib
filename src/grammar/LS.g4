@@ -209,10 +209,10 @@ conceptType
 // Basic rules
 //----------------------------------------------------------
 attributeConstraints
- : '(' elementaryAttributeConstraint (';' elementaryAttributeConstraint)* ')'
+ : '(' constraint (';' constraint)* ')'
  ;
 
-elementaryAttributeConstraint
+constraint
  : selector binaryOperator (selector | attributeValue)
  ;
 
