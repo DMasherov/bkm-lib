@@ -1,7 +1,7 @@
 package mpei.bkm.converters.text2query;
 
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lq.query.variable.QueryVariableCollection;
+import mpei.bkm.model.query.variable.QueryVariableCollection;
 import org.junit.Test;
 import org.junit.Assert;
 

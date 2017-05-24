@@ -2,8 +2,7 @@ package mpei.bkm.converters.text2ls;
 
 import junit.framework.TestCase;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lls1.terms.c.WithAttributes;
+import mpei.bkm.model.logic.LSOntology;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 

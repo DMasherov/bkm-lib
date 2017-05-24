@@ -2,7 +2,7 @@ package mpei.bkm.converters.scheme2text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
+import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
 
 public class BinaryLink2Text implements Converter<BinaryLink,String> {
 

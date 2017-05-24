@@ -1,35 +1,35 @@
 package mpei.bkm.parsing.ls.parsers;
 
-import mpei.bkm.model.commonlangfeatures.Selector;
-import mpei.bkm.model.lls1.Expression;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lls1.statement.Statement;
-import mpei.bkm.model.lls1.terms.c.C;
-import mpei.bkm.model.lls1.terms.c.That;
-import mpei.bkm.model.lls1.terms.c.Those;
-import mpei.bkm.model.lls1.terms.c.WithAttributes;
-import mpei.bkm.model.lls1.terms.l.L;
-import mpei.bkm.model.lls1.terms.p.P;
-import mpei.bkm.model.lss.Attribute;
-import mpei.bkm.model.lss.UnresolvedType;
-import mpei.bkm.model.lss.datatypespecification.datatypes.*;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.ClassAttributeCondition;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.Constraint;
-import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
-import mpei.bkm.model.lss.objectspecification.attributes.DataTypeAttribute;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
-import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
-import mpei.bkm.model.lss.objectspecification.concept.Concept;
-import mpei.bkm.model.lss.objectspecification.concepttypes.*;
-import mpei.bkm.model.lss.objectspecification.intervalrestrictions.AtomRestriction;
-import mpei.bkm.model.lss.objectspecification.intervalrestrictions.IntervalRestriction;
-import mpei.bkm.model.lss.objectspecification.intervalrestrictions.StarAtomRestriction;
-import mpei.bkm.model.lss.objectspecification.intervalrestrictions.number.*;
+import mpei.bkm.model.commonfeatures.Selector;
+import mpei.bkm.model.commonfeatures.Expression;
+import mpei.bkm.model.logic.LSOntology;
+import mpei.bkm.model.logic.statement.Statement;
+import mpei.bkm.model.logic.terms.c.C;
+import mpei.bkm.model.logic.terms.c.That;
+import mpei.bkm.model.logic.terms.c.Those;
+import mpei.bkm.model.logic.terms.c.WithAttributes;
+import mpei.bkm.model.logic.terms.l.L;
+import mpei.bkm.model.logic.terms.p.P;
+import mpei.bkm.model.structure.Attribute;
+import mpei.bkm.model.structure.UnresolvedType;
+import mpei.bkm.model.structure.datatypespecification.datatypes.*;
+import mpei.bkm.model.structure.objectspecification.attributeconstraints.AttributeConstraints;
+import mpei.bkm.model.structure.objectspecification.attributeconstraints.ClassAttributeCondition;
+import mpei.bkm.model.structure.objectspecification.attributeconstraints.Constraint;
+import mpei.bkm.model.structure.objectspecification.attributes.ConceptAttribute;
+import mpei.bkm.model.structure.objectspecification.attributes.DataTypeAttribute;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
+import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
+import mpei.bkm.model.structure.objectspecification.concept.Concept;
+import mpei.bkm.model.structure.objectspecification.concepttypes.*;
+import mpei.bkm.model.structure.objectspecification.intervalrestrictions.AtomRestriction;
+import mpei.bkm.model.structure.objectspecification.intervalrestrictions.IntervalRestriction;
+import mpei.bkm.model.structure.objectspecification.intervalrestrictions.StarAtomRestriction;
+import mpei.bkm.model.structure.objectspecification.intervalrestrictions.number.*;
 import mpei.bkm.parsing.lls1.mapping.ExprMapping;
-import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.ConceptAttributePositioning;
-import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.DataTypeAttributePositioning;
-import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.Positioning;
+import mpei.bkm.parsing.ls.parseinfo.ConceptAttributePositioning;
+import mpei.bkm.parsing.ls.parseinfo.DataTypeAttributePositioning;
+import mpei.bkm.parsing.ls.parseinfo.Positioning;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.*;
@@ -113,36 +113,36 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.c.And visitAndC(LSParser.AndCContext ctx) {
+    public mpei.bkm.model.logic.terms.c.And visitAndC(LSParser.AndCContext ctx) {
         C left = (C) (visit(ctx.c(0)));
         C right = (C) (visit(ctx.c(1)));
-        mpei.bkm.model.lls1.terms.c.And k = new mpei.bkm.model.lls1.terms.c.And(left, right);
+        mpei.bkm.model.logic.terms.c.And k = new mpei.bkm.model.logic.terms.c.And(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.c.Or visitOrC(LSParser.OrCContext ctx) {
+    public mpei.bkm.model.logic.terms.c.Or visitOrC(LSParser.OrCContext ctx) {
         C left = (C) (visit(ctx.c(0)));
         C right = (C) (visit(ctx.c(1)));
-        mpei.bkm.model.lls1.terms.c.Or k = new mpei.bkm.model.lls1.terms.c.Or(left, right);
+        mpei.bkm.model.logic.terms.c.Or k = new mpei.bkm.model.logic.terms.c.Or(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.c.Not visitNotC(LSParser.NotCContext ctx) {
+    public mpei.bkm.model.logic.terms.c.Not visitNotC(LSParser.NotCContext ctx) {
         C c = (C) visit(ctx.c());
-        mpei.bkm.model.lls1.terms.c.Not k = new mpei.bkm.model.lls1.terms.c.Not(c);
+        mpei.bkm.model.logic.terms.c.Not k = new mpei.bkm.model.logic.terms.c.Not(c);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.c.ConceptVariable visitConceptVariableC(LSParser.ConceptVariableCContext ctx) {
+    public mpei.bkm.model.logic.terms.c.ConceptVariable visitConceptVariableC(LSParser.ConceptVariableCContext ctx) {
         C c = (C) visit(ctx.c());
         String varName = ctx.variable().getText();
-        mpei.bkm.model.lls1.terms.c.ConceptVariable k = new mpei.bkm.model.lls1.terms.c.ConceptVariable(c, varName);
+        mpei.bkm.model.logic.terms.c.ConceptVariable k = new mpei.bkm.model.logic.terms.c.ConceptVariable(c, varName);
         expressions.add(k);
         return k;
     }
@@ -175,7 +175,7 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     @Override
     public Those visitThoseC(LSParser.ThoseCContext ctx) {
         P p = (P) visit(ctx.p());
-        mpei.bkm.model.lls1.terms.c.Those k = new mpei.bkm.model.lls1.terms.c.Those(p);
+        mpei.bkm.model.logic.terms.c.Those k = new mpei.bkm.model.logic.terms.c.Those(p);
         expressions.add(k);
         return k;
     }
@@ -184,13 +184,13 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     public That visitThatC(LSParser.ThatCContext ctx) {
         C c = (C) visit(ctx.c());
         P p = (P) visit(ctx.p());
-        mpei.bkm.model.lls1.terms.c.That k = new mpei.bkm.model.lls1.terms.c.That(c, p);
+        mpei.bkm.model.logic.terms.c.That k = new mpei.bkm.model.logic.terms.c.That(c, p);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.l.WithAttributes visitWithAttributesL(LSParser.WithAttributesLContext ctx) {
+    public mpei.bkm.model.logic.terms.l.WithAttributes visitWithAttributesL(LSParser.WithAttributesLContext ctx) {
         String name = ctx.binaryLinkName().getText();;
 
 
@@ -210,8 +210,8 @@ public class LSBuildingVisitor extends LSBaseVisitor {
         if (ctx.attributeConstraints() != null) {
             constraints = (AttributeConstraints) visit(ctx.attributeConstraints());
         }
-        mpei.bkm.model.lls1.terms.l.WithAttributes linkTerm =
-                new mpei.bkm.model.lls1.terms.l.WithAttributes(link, constraints);
+        mpei.bkm.model.logic.terms.l.WithAttributes linkTerm =
+                new mpei.bkm.model.logic.terms.l.WithAttributes(link, constraints);
         ont.getBinaryLinksTerms().add(linkTerm);
         return linkTerm;
     }
@@ -222,106 +222,106 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.l.And visitAndL(LSParser.AndLContext ctx) {
+    public mpei.bkm.model.logic.terms.l.And visitAndL(LSParser.AndLContext ctx) {
         L left = (L) (visit(ctx.l(0)));
         L right = (L) (visit(ctx.l(1)));
-        mpei.bkm.model.lls1.terms.l.And k = new mpei.bkm.model.lls1.terms.l.And(left, right);
+        mpei.bkm.model.logic.terms.l.And k = new mpei.bkm.model.logic.terms.l.And(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.l.Or visitOrL(LSParser.OrLContext ctx) {
+    public mpei.bkm.model.logic.terms.l.Or visitOrL(LSParser.OrLContext ctx) {
         L left = (L) (visit(ctx.l(0)));
         L right = (L) (visit(ctx.l(1)));
-        mpei.bkm.model.lls1.terms.l.Or k = new mpei.bkm.model.lls1.terms.l.Or(left, right);
+        mpei.bkm.model.logic.terms.l.Or k = new mpei.bkm.model.logic.terms.l.Or(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.l.Not visitNotL(LSParser.NotLContext ctx) {
+    public mpei.bkm.model.logic.terms.l.Not visitNotL(LSParser.NotLContext ctx) {
         L l = (L) visit(ctx.l());
-        mpei.bkm.model.lls1.terms.l.Not k = new mpei.bkm.model.lls1.terms.l.Not(l);
+        mpei.bkm.model.logic.terms.l.Not k = new mpei.bkm.model.logic.terms.l.Not(l);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.l.Inv visitInvL(LSParser.InvLContext ctx) {
+    public mpei.bkm.model.logic.terms.l.Inv visitInvL(LSParser.InvLContext ctx) {
         L l = (L) visit(ctx.l());
-        mpei.bkm.model.lls1.terms.l.Inv k = new mpei.bkm.model.lls1.terms.l.Inv(l);
+        mpei.bkm.model.logic.terms.l.Inv k = new mpei.bkm.model.logic.terms.l.Inv(l);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.Not visitNotP(LSParser.NotPContext ctx) {
+    public mpei.bkm.model.logic.terms.p.Not visitNotP(LSParser.NotPContext ctx) {
         P p = (P) visit(ctx.p());
-        mpei.bkm.model.lls1.terms.p.Not k = new mpei.bkm.model.lls1.terms.p.Not(p);
+        mpei.bkm.model.logic.terms.p.Not k = new mpei.bkm.model.logic.terms.p.Not(p);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.And visitAndP(LSParser.AndPContext ctx) {
+    public mpei.bkm.model.logic.terms.p.And visitAndP(LSParser.AndPContext ctx) {
         P left = (P) (visit(ctx.p(0)));
         P right = (P) (visit(ctx.p(1)));
-        mpei.bkm.model.lls1.terms.p.And k = new mpei.bkm.model.lls1.terms.p.And(left, right);
+        mpei.bkm.model.logic.terms.p.And k = new mpei.bkm.model.logic.terms.p.And(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.Or visitOrP(LSParser.OrPContext ctx) {
+    public mpei.bkm.model.logic.terms.p.Or visitOrP(LSParser.OrPContext ctx) {
         P left = (P) (visit(ctx.p(0)));
         P right = (P) (visit(ctx.p(1)));
-        mpei.bkm.model.lls1.terms.p.Or k = new mpei.bkm.model.lls1.terms.p.Or(left, right);
+        mpei.bkm.model.logic.terms.p.Or k = new mpei.bkm.model.logic.terms.p.Or(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.Some visitSomeP(LSParser.SomePContext ctx) {
+    public mpei.bkm.model.logic.terms.p.Some visitSomeP(LSParser.SomePContext ctx) {
         L l = (L) (visit(ctx.l()));
         C c = (C) (visit(ctx.c()));
-        mpei.bkm.model.lls1.terms.p.Some k = new mpei.bkm.model.lls1.terms.p.Some(l, c);
+        mpei.bkm.model.logic.terms.p.Some k = new mpei.bkm.model.logic.terms.p.Some(l, c);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.Each visitEachP(LSParser.EachPContext ctx) {
+    public mpei.bkm.model.logic.terms.p.Each visitEachP(LSParser.EachPContext ctx) {
         L l = (L) (visit(ctx.l()));
         C c = (C) (visit(ctx.c()));
-        mpei.bkm.model.lls1.terms.p.Each k = new mpei.bkm.model.lls1.terms.p.Each(l, c);
+        mpei.bkm.model.logic.terms.p.Each k = new mpei.bkm.model.logic.terms.p.Each(l, c);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.Only visitOnlyP(LSParser.OnlyPContext ctx) {
+    public mpei.bkm.model.logic.terms.p.Only visitOnlyP(LSParser.OnlyPContext ctx) {
         L l = (L) (visit(ctx.l()));
         C c = (C) (visit(ctx.c()));
-        mpei.bkm.model.lls1.terms.p.Only k = new mpei.bkm.model.lls1.terms.p.Only(l, c);
+        mpei.bkm.model.logic.terms.p.Only k = new mpei.bkm.model.logic.terms.p.Only(l, c);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.PredicateVariable visitPredicateVariableP(LSParser.PredicateVariablePContext ctx) {
+    public mpei.bkm.model.logic.terms.p.PredicateVariable visitPredicateVariableP(LSParser.PredicateVariablePContext ctx) {
         L l = (L) (visit(ctx.l()));
         String varName = ctx.variable().getText();
-        mpei.bkm.model.lls1.terms.p.PredicateVariable k = new mpei.bkm.model.lls1.terms.p.PredicateVariable(l, varName);
+        mpei.bkm.model.logic.terms.p.PredicateVariable k = new mpei.bkm.model.logic.terms.p.PredicateVariable(l, varName);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.terms.p.SurrogateVariable visitSurrogateVariableP(LSParser.SurrogateVariablePContext ctx) {
+    public mpei.bkm.model.logic.terms.p.SurrogateVariable visitSurrogateVariableP(LSParser.SurrogateVariablePContext ctx) {
         L l = (L) (visit(ctx.l()));
         String surName = ctx.surrogate().getText();
-        mpei.bkm.model.lls1.terms.p.SurrogateVariable k = new mpei.bkm.model.lls1.terms.p.SurrogateVariable(l, surName);
+        mpei.bkm.model.logic.terms.p.SurrogateVariable k = new mpei.bkm.model.logic.terms.p.SurrogateVariable(l, surName);
         expressions.add(k);
         return k;
     }
@@ -332,139 +332,139 @@ public class LSBuildingVisitor extends LSBaseVisitor {
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Not visitNotSentence(LSParser.NotSentenceContext ctx) {
+    public mpei.bkm.model.logic.statement.Not visitNotSentence(LSParser.NotSentenceContext ctx) {
         Statement s = (Statement) visit(ctx.logicalSentence());
-        mpei.bkm.model.lls1.statement.Not k = new mpei.bkm.model.lls1.statement.Not(s);
+        mpei.bkm.model.logic.statement.Not k = new mpei.bkm.model.logic.statement.Not(s);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.And visitAndSentence(LSParser.AndSentenceContext ctx) {
+    public mpei.bkm.model.logic.statement.And visitAndSentence(LSParser.AndSentenceContext ctx) {
         Statement left = (Statement) visit(ctx.logicalSentence(0));
         Statement right = (Statement) visit(ctx.logicalSentence(1));
-        mpei.bkm.model.lls1.statement.And k = new mpei.bkm.model.lls1.statement.And(left, right);
+        mpei.bkm.model.logic.statement.And k = new mpei.bkm.model.logic.statement.And(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Or visitOrSentence(LSParser.OrSentenceContext ctx) {
+    public mpei.bkm.model.logic.statement.Or visitOrSentence(LSParser.OrSentenceContext ctx) {
         Statement left = (Statement) visit(ctx.logicalSentence(0));
         Statement right = (Statement) visit(ctx.logicalSentence(1));
-        mpei.bkm.model.lls1.statement.Or k = new mpei.bkm.model.lls1.statement.Or(left, right);
+        mpei.bkm.model.logic.statement.Or k = new mpei.bkm.model.logic.statement.Or(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Imp visitImpSentence(LSParser.ImpSentenceContext ctx) {
+    public mpei.bkm.model.logic.statement.Imp visitImpSentence(LSParser.ImpSentenceContext ctx) {
         Statement left = (Statement) visit(ctx.logicalSentence(0));
         Statement right = (Statement) visit(ctx.logicalSentence(1));
-        mpei.bkm.model.lls1.statement.Imp k = new mpei.bkm.model.lls1.statement.Imp(left, right);
+        mpei.bkm.model.logic.statement.Imp k = new mpei.bkm.model.logic.statement.Imp(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Statement visitJustStatement(LSParser.JustStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.Statement visitJustStatement(LSParser.JustStatementContext ctx) {
         Statement statement = (Statement) visit(ctx.statement());
         expressions.add(statement);
         return statement;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Statement visitExist(LSParser.ExistContext ctx) {
+    public mpei.bkm.model.logic.statement.Statement visitExist(LSParser.ExistContext ctx) {
         C c = (C) visit(ctx.c());
-        mpei.bkm.model.lls1.statement.ExistC k = new mpei.bkm.model.lls1.statement.ExistC(c);
+        mpei.bkm.model.logic.statement.ExistC k = new mpei.bkm.model.logic.statement.ExistC(c);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Statement visitNotExist(LSParser.NotExistContext ctx) {
+    public mpei.bkm.model.logic.statement.Statement visitNotExist(LSParser.NotExistContext ctx) {
         C c = (C) visit(ctx.c());
-        mpei.bkm.model.lls1.statement.NullC k = new mpei.bkm.model.lls1.statement.NullC(c);
+        mpei.bkm.model.logic.statement.NullC k = new mpei.bkm.model.logic.statement.NullC(c);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.IsaC visitIsa(LSParser.IsaContext ctx) {
+    public mpei.bkm.model.logic.statement.IsaC visitIsa(LSParser.IsaContext ctx) {
         C sub = (C) visit(ctx.c(0));
         C sup = (C) visit(ctx.c(1));
-        mpei.bkm.model.lls1.statement.IsaC k = new mpei.bkm.model.lls1.statement.IsaC(sub, sup);
+        mpei.bkm.model.logic.statement.IsaC k = new mpei.bkm.model.logic.statement.IsaC(sub, sup);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.EqualC visitEqualsCStatement(LSParser.EqualsCStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.EqualC visitEqualsCStatement(LSParser.EqualsCStatementContext ctx) {
         C left = (C) visit(ctx.c(0));
         C right = (C) visit(ctx.c(1));
-        mpei.bkm.model.lls1.statement.EqualC k = new mpei.bkm.model.lls1.statement.EqualC(left, right);
+        mpei.bkm.model.logic.statement.EqualC k = new mpei.bkm.model.logic.statement.EqualC(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.EqualP visitEqualsPStatement(LSParser.EqualsPStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.EqualP visitEqualsPStatement(LSParser.EqualsPStatementContext ctx) {
         P left = (P) visit(ctx.p(0));
         P right = (P) visit(ctx.p(1));
-        mpei.bkm.model.lls1.statement.EqualP k = new mpei.bkm.model.lls1.statement.EqualP(left, right);
+        mpei.bkm.model.logic.statement.EqualP k = new mpei.bkm.model.logic.statement.EqualP(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Not visitNotEqualsCStatement(LSParser.NotEqualsCStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.Not visitNotEqualsCStatement(LSParser.NotEqualsCStatementContext ctx) {
         C left = (C) visit(ctx.c(0));
         C right = (C) visit(ctx.c(1));
-        mpei.bkm.model.lls1.statement.EqualC e = new mpei.bkm.model.lls1.statement.EqualC(left, right);
-        mpei.bkm.model.lls1.statement.Not k = new mpei.bkm.model.lls1.statement.Not(e);
+        mpei.bkm.model.logic.statement.EqualC e = new mpei.bkm.model.logic.statement.EqualC(left, right);
+        mpei.bkm.model.logic.statement.Not k = new mpei.bkm.model.logic.statement.Not(e);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.EqualL visitEqualsLStatement(LSParser.EqualsLStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.EqualL visitEqualsLStatement(LSParser.EqualsLStatementContext ctx) {
         L left = (L) visit(ctx.l(0));
         L right = (L) visit(ctx.l(1));
-        mpei.bkm.model.lls1.statement.EqualL k = new mpei.bkm.model.lls1.statement.EqualL(left, right);
+        mpei.bkm.model.logic.statement.EqualL k = new mpei.bkm.model.logic.statement.EqualL(left, right);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Not visitNotEqualsLStatement(LSParser.NotEqualsLStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.Not visitNotEqualsLStatement(LSParser.NotEqualsLStatementContext ctx) {
         L left = (L) visit(ctx.l(0));
         L right = (L) visit(ctx.l(1));
-        mpei.bkm.model.lls1.statement.EqualL e = new mpei.bkm.model.lls1.statement.EqualL(left, right);
-        mpei.bkm.model.lls1.statement.Not k = new mpei.bkm.model.lls1.statement.Not(e);
+        mpei.bkm.model.logic.statement.EqualL e = new mpei.bkm.model.logic.statement.EqualL(left, right);
+        mpei.bkm.model.logic.statement.Not k = new mpei.bkm.model.logic.statement.Not(e);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Some visitSomeStatement(LSParser.SomeStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.Some visitSomeStatement(LSParser.SomeStatementContext ctx) {
         C c = (C) visit(ctx.c());
         P p = (P) visit(ctx.p());
-        mpei.bkm.model.lls1.statement.Some k = new mpei.bkm.model.lls1.statement.Some(c, p);
+        mpei.bkm.model.logic.statement.Some k = new mpei.bkm.model.logic.statement.Some(c, p);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Each visitEachStatement(LSParser.EachStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.Each visitEachStatement(LSParser.EachStatementContext ctx) {
         C c = (C) visit(ctx.c());
         P p = (P) visit(ctx.p());
-        mpei.bkm.model.lls1.statement.Each k = new mpei.bkm.model.lls1.statement.Each(c, p);
+        mpei.bkm.model.logic.statement.Each k = new mpei.bkm.model.logic.statement.Each(c, p);
         expressions.add(k);
         return k;
     }
 
     @Override
-    public mpei.bkm.model.lls1.statement.Statement visitBracketedStatement(LSParser.BracketedStatementContext ctx) {
+    public mpei.bkm.model.logic.statement.Statement visitBracketedStatement(LSParser.BracketedStatementContext ctx) {
         return (Statement) (visit(ctx.logicalSentence()));
     }
 

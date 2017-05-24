@@ -1,11 +1,11 @@
 package mpei.bkm.parsing.lq.parsers;
 
-import mpei.bkm.model.commonlangfeatures.Selector;
-import mpei.bkm.model.lq.query.AggregateGoal;
-import mpei.bkm.model.lq.query.Condition;
-import mpei.bkm.model.lq.query.Goal;
-import mpei.bkm.model.lq.query.InClass;
-import mpei.bkm.model.lq.query.variable.*;
+import mpei.bkm.model.commonfeatures.Selector;
+import mpei.bkm.model.query.AggregateGoal;
+import mpei.bkm.model.query.Condition;
+import mpei.bkm.model.query.Goal;
+import mpei.bkm.model.query.InClass;
+import mpei.bkm.model.query.variable.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.ArrayList;

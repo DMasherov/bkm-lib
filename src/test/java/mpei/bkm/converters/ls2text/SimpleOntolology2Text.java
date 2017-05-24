@@ -1,7 +1,7 @@
 package mpei.bkm.converters.ls2text;
 
 import mpei.bkm.converters.text2ls.Text2LSOntology;
-import mpei.bkm.model.lls1.LSOntology;
+import mpei.bkm.model.logic.LSOntology;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class SimpleOntolology2Text  {
 
         LSOntology o = fromFile.convert(s);
 
-        LSOntology2Text toText = new LSOntology2Text();
+        LSOntology2TextSimply toText = new LSOntology2TextSimply();
         String simpleExprText = toText.convert(o);
 
         Assert.assertNotNull(simpleExprText);

@@ -1,13 +1,13 @@
 package mpei.bkm.parsing.structurescheme.visitors;
 
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
-import mpei.bkm.model.lss.objectspecification.concept.Concept;
-import mpei.bkm.model.lss.Attribute;
-import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
-import mpei.bkm.model.lss.objectspecification.attributes.DataTypeAttribute;
-import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
-import mpei.bkm.model.lss.objectspecification.concepttypes.*;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
+import mpei.bkm.model.structure.objectspecification.concept.Concept;
+import mpei.bkm.model.structure.Attribute;
+import mpei.bkm.model.structure.objectspecification.attributes.ConceptAttribute;
+import mpei.bkm.model.structure.objectspecification.attributes.DataTypeAttribute;
+import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
+import mpei.bkm.model.structure.objectspecification.concepttypes.*;
 import mpei.bkm.model.structurescheme.Scheme;
 import mpei.bkm.parsing.structurescheme.SchemeCollections;
 

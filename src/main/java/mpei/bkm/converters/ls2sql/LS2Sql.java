@@ -1,15 +1,14 @@
 package mpei.bkm.converters.ls2sql;
 
 import mpei.bkm.converters.Converter;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
+import mpei.bkm.model.logic.LSOntology;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.Attribute;
-import mpei.bkm.model.lss.datatypespecification.datatypes.EnumType;
-import mpei.bkm.model.lss.datatypespecification.datatypes.PrimitiveDataType;
-import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
-import mpei.bkm.model.lss.objectspecification.concepttypes.*;
-import mpei.bkm.parsing.structurescheme.SchemeCollections;
+import mpei.bkm.model.structure.Attribute;
+import mpei.bkm.model.structure.datatypespecification.datatypes.EnumType;
+import mpei.bkm.model.structure.datatypespecification.datatypes.PrimitiveDataType;
+import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
+import mpei.bkm.model.structure.objectspecification.concepttypes.*;
 import mpei.bkm.parsing.structurescheme.SchemeContainer;
 
 import java.util.*;

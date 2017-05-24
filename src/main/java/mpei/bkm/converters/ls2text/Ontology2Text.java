@@ -4,8 +4,8 @@ import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.converters.ls2text.expression2Text.Expr2String;
 import mpei.bkm.converters.ls2text.expression2Text.Type2String;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lls1.statement.Statement;
+import mpei.bkm.model.logic.LSOntology;
+import mpei.bkm.model.logic.statement.Statement;
 
 public class Ontology2Text implements Converter<LSOntology, String> {
     public String convert(LSOntology LSOntology) throws UnconvertableException {

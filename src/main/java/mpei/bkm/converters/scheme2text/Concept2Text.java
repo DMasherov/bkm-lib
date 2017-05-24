@@ -2,9 +2,9 @@ package mpei.bkm.converters.scheme2text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
-import mpei.bkm.model.lss.objectspecification.concept.Concept;
-import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
+import mpei.bkm.model.structure.objectspecification.concept.Concept;
+import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
 
 public class Concept2Text implements Converter<Concept,String> {
 

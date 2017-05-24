@@ -2,8 +2,8 @@ package mpei.bkm.converters.ls2owl;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lls1.statement.Statement;
+import mpei.bkm.model.logic.LSOntology;
+import mpei.bkm.model.logic.statement.Statement;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;

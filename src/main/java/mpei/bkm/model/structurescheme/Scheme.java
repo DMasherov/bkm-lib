@@ -1,10 +1,8 @@
 package mpei.bkm.model.structurescheme;
 
-import mpei.bkm.model.lss.objectspecification.concept.Concept;
+import mpei.bkm.model.structure.objectspecification.concept.Concept;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**

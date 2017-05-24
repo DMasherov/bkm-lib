@@ -2,10 +2,8 @@ package mpei.bkm.converters.text2ls;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lls1.Undeclared;
-import mpei.bkm.model.lss.Attribute;
-import mpei.bkm.model.lss.objectspecification.concept.Concept;
+import mpei.bkm.model.logic.LSOntology;
+import mpei.bkm.model.commonfeatures.Undeclared;
 import mpei.bkm.parsing.common.BKMParseErrorListener;
 import mpei.bkm.parsing.ls.parsers.LSBuildingVisitor;
 import mpei.bkm.parsing.ls.parsers.LSLexer;
@@ -14,12 +12,11 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Class reads {@link mpei.bkm.model.lls1.LSOntology}.
+ * Class reads {@link mpei.bkm.model.logic.LSOntology}.
  */
 public class Text2LSOntology implements Converter<String, LSOntology> {
     private List<String> parseErrors;

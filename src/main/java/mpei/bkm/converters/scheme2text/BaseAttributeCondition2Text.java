@@ -1,9 +1,9 @@
 package mpei.bkm.converters.scheme2text;
 
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.Constraint;
+import mpei.bkm.model.structure.objectspecification.attributeconstraints.Constraint;
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
+import mpei.bkm.model.structure.objectspecification.attributeconstraints.AttributeConstraints;
 import org.apache.commons.lang.StringUtils;
 
 public class BaseAttributeCondition2Text implements Converter<AttributeConstraints,String> {

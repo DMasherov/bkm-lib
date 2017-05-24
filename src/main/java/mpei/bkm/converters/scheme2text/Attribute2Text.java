@@ -2,9 +2,9 @@ package mpei.bkm.converters.scheme2text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.Attribute;
-import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
-import mpei.bkm.model.lss.objectspecification.attributes.DataTypeAttribute;
+import mpei.bkm.model.structure.Attribute;
+import mpei.bkm.model.structure.objectspecification.attributes.ConceptAttribute;
+import mpei.bkm.model.structure.objectspecification.attributes.DataTypeAttribute;
 
 public class Attribute2Text implements Converter<Attribute,String> {
     @Override

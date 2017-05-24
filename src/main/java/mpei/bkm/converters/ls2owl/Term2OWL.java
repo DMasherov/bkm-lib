@@ -2,17 +2,17 @@ package mpei.bkm.converters.ls2owl;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lls1.terms.Term;
-import mpei.bkm.model.lls1.terms.c.*;
-import mpei.bkm.model.lls1.terms.c.And;
-import mpei.bkm.model.lls1.terms.c.WithAttributes;
-import mpei.bkm.model.lls1.terms.c.Not;
-import mpei.bkm.model.lls1.terms.c.Or;
-import mpei.bkm.model.lls1.terms.l.*;
-import mpei.bkm.model.lls1.terms.p.Each;
-import mpei.bkm.model.lls1.terms.p.Only;
-import mpei.bkm.model.lls1.terms.p.P;
-import mpei.bkm.model.lls1.terms.p.Some;
+import mpei.bkm.model.logic.terms.Term;
+import mpei.bkm.model.logic.terms.c.*;
+import mpei.bkm.model.logic.terms.c.And;
+import mpei.bkm.model.logic.terms.c.WithAttributes;
+import mpei.bkm.model.logic.terms.c.Not;
+import mpei.bkm.model.logic.terms.c.Or;
+import mpei.bkm.model.logic.terms.l.*;
+import mpei.bkm.model.logic.terms.p.Each;
+import mpei.bkm.model.logic.terms.p.Only;
+import mpei.bkm.model.logic.terms.p.P;
+import mpei.bkm.model.logic.terms.p.Some;
 import org.semanticweb.owlapi.model.*;
 
 public class Term2OWL implements Converter<Term, OWLClassExpression> {
@@ -65,40 +65,40 @@ public class Term2OWL implements Converter<Term, OWLClassExpression> {
     }
 
     public OWLClassExpression convert(P p) throws UnconvertableException {
-        if (p instanceof mpei.bkm.model.lls1.terms.p.Some) {
+        if (p instanceof mpei.bkm.model.logic.terms.p.Some) {
             return df.getOWLObjectSomeValuesFrom(
                     convert(((Some) p).getL()),
                     convert(((Some) p).getC())
             );
         }
-        if (p instanceof mpei.bkm.model.lls1.terms.p.Only) {
+        if (p instanceof mpei.bkm.model.logic.terms.p.Only) {
             // TODO redo: this is not correct. Should be both Some and Each, i.e. ∀R.C ⨅ ∃R.C
             return df.getOWLObjectAllValuesFrom(
                     convert(((Only) p).getL()),
                     convert(((Only) p).getC())
             );
         }
-        if (p instanceof mpei.bkm.model.lls1.terms.p.Each) {
+        if (p instanceof mpei.bkm.model.logic.terms.p.Each) {
             return df.getOWLObjectAllValuesFrom(
                     convert(((Each) p).getL()),
                     convert(((Each) p).getC())
             );
         }
-        if (p instanceof mpei.bkm.model.lls1.terms.p.And) {
+        if (p instanceof mpei.bkm.model.logic.terms.p.And) {
             return df.getOWLObjectIntersectionOf(
-                    convert(((mpei.bkm.model.lls1.terms.p.And) p).getLeft()),
-                    convert(((mpei.bkm.model.lls1.terms.p.And) p).getRight())
+                    convert(((mpei.bkm.model.logic.terms.p.And) p).getLeft()),
+                    convert(((mpei.bkm.model.logic.terms.p.And) p).getRight())
             );
         }
-        if (p instanceof mpei.bkm.model.lls1.terms.p.Or) {
+        if (p instanceof mpei.bkm.model.logic.terms.p.Or) {
             return df.getOWLObjectUnionOf(
-                    convert(((mpei.bkm.model.lls1.terms.p.Or) p).getLeft()),
-                    convert(((mpei.bkm.model.lls1.terms.p.Or) p).getRight())
+                    convert(((mpei.bkm.model.logic.terms.p.Or) p).getLeft()),
+                    convert(((mpei.bkm.model.logic.terms.p.Or) p).getRight())
             );
         }
 
-        if (p instanceof mpei.bkm.model.lls1.terms.p.Not) {
-            return df.getOWLObjectComplementOf(convert(((mpei.bkm.model.lls1.terms.p.Not) p).getNot()));
+        if (p instanceof mpei.bkm.model.logic.terms.p.Not) {
+            return df.getOWLObjectComplementOf(convert(((mpei.bkm.model.logic.terms.p.Not) p).getNot()));
         }
 
         throw new IllegalStateException("Unrecognized p-term " + p.toString());
@@ -110,19 +110,19 @@ public class Term2OWL implements Converter<Term, OWLClassExpression> {
 
     // TODO refactor when it is clear how to implement "L OR L", "L AND L" and "NOT L"
     public OWLObjectPropertyExpression convert(boolean inverted, L l) throws UnconvertableException {
-        if (l instanceof mpei.bkm.model.lls1.terms.l.WithAttributes) {
-            return df.getOWLObjectProperty(IRI.create(((mpei.bkm.model.lls1.terms.l.WithAttributes) l).getBinaryLink().getName()));
+        if (l instanceof mpei.bkm.model.logic.terms.l.WithAttributes) {
+            return df.getOWLObjectProperty(IRI.create(((mpei.bkm.model.logic.terms.l.WithAttributes) l).getBinaryLink().getName()));
         }
-        if (l instanceof mpei.bkm.model.lls1.terms.l.Inv) {
+        if (l instanceof mpei.bkm.model.logic.terms.l.Inv) {
             OWLObjectPropertyExpression ope = convert(!inverted, l);
             if (!inverted && ope instanceof OWLObjectProperty) {
                 return df.getOWLObjectInverseOf((OWLObjectProperty) ope);
             }
             return ope;
         }
-        if (l instanceof mpei.bkm.model.lls1.terms.l.Or
-                || l instanceof mpei.bkm.model.lls1.terms.l.And
-                || l instanceof mpei.bkm.model.lls1.terms.l.Not)
+        if (l instanceof mpei.bkm.model.logic.terms.l.Or
+                || l instanceof mpei.bkm.model.logic.terms.l.And
+                || l instanceof mpei.bkm.model.logic.terms.l.Not)
             throw new IllegalStateException(l.toString() + " cannot be implemented in OWL");
         throw new IllegalStateException("Unrecognized l-term " + l.toString());
     }

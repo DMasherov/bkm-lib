@@ -2,18 +2,18 @@ package mpei.bkm.converters.ls2owl;
 
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.converters.text2ls.Text2LSOntology;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lls1.statement.IsaC;
-import mpei.bkm.model.lls1.terms.c.*;
-import mpei.bkm.model.lls1.terms.c.And;
-import mpei.bkm.model.lls1.terms.c.Not;
-import mpei.bkm.model.lls1.terms.c.Or;
-import mpei.bkm.model.lls1.terms.c.WithAttributes;
-import mpei.bkm.model.lls1.terms.p.Each;
-import mpei.bkm.model.lls1.terms.p.Only;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
-import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
+import mpei.bkm.model.logic.LSOntology;
+import mpei.bkm.model.logic.statement.IsaC;
+import mpei.bkm.model.logic.terms.c.*;
+import mpei.bkm.model.logic.terms.c.And;
+import mpei.bkm.model.logic.terms.c.Not;
+import mpei.bkm.model.logic.terms.c.Or;
+import mpei.bkm.model.logic.terms.c.WithAttributes;
+import mpei.bkm.model.logic.terms.p.Each;
+import mpei.bkm.model.logic.terms.p.Only;
+import mpei.bkm.model.structure.objectspecification.attributeconstraints.AttributeConstraints;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
+import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -94,8 +94,8 @@ public class Ls2OwlTest {
         AttributeConstraints emptyConstraints = new AttributeConstraints(Collections.emptyList());
         WithAttributes C1 = new WithAttributes(new BKMClass("C1"), emptyConstraints);
         WithAttributes C2 = new WithAttributes(new BKMClass("C2"), emptyConstraints);
-        mpei.bkm.model.lls1.terms.l.WithAttributes R =
-                new mpei.bkm.model.lls1.terms.l.WithAttributes(new BinaryLink("R"), emptyConstraints);
+        mpei.bkm.model.logic.terms.l.WithAttributes R =
+                new mpei.bkm.model.logic.terms.l.WithAttributes(new BinaryLink("R"), emptyConstraints);
 
         Or orC = new Or(C1, new Those(new Only(R, C2)));
         And andC = new And(orC, new Not(new That(C2, new Each(R, C1))));

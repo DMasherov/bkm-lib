@@ -2,14 +2,14 @@ package mpei.bkm.converters.text2scheme;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
-import mpei.bkm.model.lss.objectspecification.concepttypes.BKMClassType;
+import mpei.bkm.model.structure.objectspecification.attributes.ConceptAttribute;
+import mpei.bkm.model.structure.objectspecification.concepttypes.BKMClassType;
 import mpei.bkm.parsing.structurescheme.parsers.StructureSchemeParser;
 import mpei.bkm.parsing.structurescheme.parsers.StructureSchemeBuildingVisitor;
 import mpei.bkm.parsing.common.BKMParseErrorListener;
 import mpei.bkm.parsing.structurescheme.parsers.StructureSchemeLexer;
-import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.ConceptAttributePositioning;
-import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.Positioning;
+import mpei.bkm.parsing.ls.parseinfo.ConceptAttributePositioning;
+import mpei.bkm.parsing.ls.parseinfo.Positioning;
 import mpei.bkm.model.structurescheme.Scheme;
 import mpei.bkm.parsing.structurescheme.SchemeContainer;
 import org.antlr.v4.runtime.ANTLRInputStream;

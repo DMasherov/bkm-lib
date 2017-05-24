@@ -1,11 +1,11 @@
 package mpei.bkm.parsing.structurescheme;
 
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
 import mpei.bkm.model.structurescheme.Scheme;
 import mpei.bkm.parsing.structurescheme.visitors.SchemeCollector;
-import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
-import mpei.bkm.model.lss.objectspecification.concepttypes.BKMClassType;
+import mpei.bkm.model.structure.objectspecification.attributes.ConceptAttribute;
+import mpei.bkm.model.structure.objectspecification.concepttypes.BKMClassType;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
 
@@ -64,7 +64,7 @@ public class SchemeContainer {
 
     /**
      * Gets all undefined concepts finded when traversing scheme tree.
-     * @return {@link Map<  mpei.bkm.model.lss.objectspecification.concepttypes.BKMClassType , List<ConceptAttribute>>}
+     * @return {@link Map<  mpei.bkm.model.structure.objectspecification.concepttypes.BKMClassType , List<ConceptAttribute>>}
      */
     public Map<BKMClassType, List<ConceptAttribute>> getUndefinedConceptsInAttributes() {
         return undefinedConceptsInAttributes;

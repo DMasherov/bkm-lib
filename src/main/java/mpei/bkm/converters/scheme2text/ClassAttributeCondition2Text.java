@@ -2,7 +2,7 @@ package mpei.bkm.converters.scheme2text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.attributeconstraints.ClassAttributeCondition;
+import mpei.bkm.model.structure.objectspecification.attributeconstraints.ClassAttributeCondition;
 
 public class ClassAttributeCondition2Text implements Converter<ClassAttributeCondition,String> {
     @Override

@@ -2,10 +2,10 @@ package mpei.bkm.converters.ls2owl;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lls1.LSOntology;
-import mpei.bkm.model.lls1.terms.c.WithAttributes;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
-import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
+import mpei.bkm.model.logic.LSOntology;
+import mpei.bkm.model.logic.terms.c.WithAttributes;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
+import mpei.bkm.model.structure.objectspecification.concept.BinaryLink;
 import org.semanticweb.owlapi.model.*;
 
 import java.util.*;
@@ -28,7 +28,7 @@ public class Concepts2OWL implements Converter<LSOntology, Set<OWLAxiom>> {
         for (WithAttributes classTerm : lsOnt.getClassesTerms()) {
             declareAxioms.addAll(createDeclareAxioms(classTerm.getBkmClass()));
         }
-        for (mpei.bkm.model.lls1.terms.l.WithAttributes linkTerm : lsOnt.getBinaryLinksTerms()) {
+        for (mpei.bkm.model.logic.terms.l.WithAttributes linkTerm : lsOnt.getBinaryLinksTerms()) {
             declareAxioms.addAll(createDeclareAxioms(linkTerm.getBinaryLink()));
         }
 

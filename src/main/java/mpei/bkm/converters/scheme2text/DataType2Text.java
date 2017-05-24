@@ -2,7 +2,7 @@ package mpei.bkm.converters.scheme2text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.datatypespecification.datatypes.*;
+import mpei.bkm.model.structure.datatypespecification.datatypes.*;
 import org.apache.commons.lang.StringUtils;
 
 public class DataType2Text implements Converter<DataType, String> {

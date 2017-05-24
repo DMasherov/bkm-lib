@@ -2,7 +2,7 @@ package mpei.bkm.converters.ls2owl;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lls1.statement.*;
+import mpei.bkm.model.logic.statement.*;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -23,36 +23,36 @@ public class Statement2OWL implements Converter<Statement, Set<OWLAxiom>> {    p
 
     @Override
     public Set<OWLAxiom> convert(Statement e) throws UnconvertableException {
-        if (e instanceof mpei.bkm.model.lls1.statement.And
-                || e instanceof mpei.bkm.model.lls1.statement.Imp
-                || e instanceof mpei.bkm.model.lls1.statement.Not
-                || e instanceof mpei.bkm.model.lls1.statement.Or)
+        if (e instanceof mpei.bkm.model.logic.statement.And
+                || e instanceof mpei.bkm.model.logic.statement.Imp
+                || e instanceof mpei.bkm.model.logic.statement.Not
+                || e instanceof mpei.bkm.model.logic.statement.Or)
             throw new IllegalStateException("Not yet implemented");
 
         Set<OWLAxiom> axioms = new HashSet<>();
         Term2OWL termConverter = new Term2OWL(manager, owlOntology);
-        if (e instanceof mpei.bkm.model.lls1.statement.IsaC) {
+        if (e instanceof mpei.bkm.model.logic.statement.IsaC) {
             axioms.add(df.getOWLSubClassOfAxiom(
                 termConverter.convert(((IsaC) e).getSub()),
                 termConverter.convert(((IsaC) e).getSup())
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.IsaL) {
+        if (e instanceof mpei.bkm.model.logic.statement.IsaL) {
             axioms.add(df.getOWLSubObjectPropertyOfAxiom(
                 termConverter.convert(((IsaL)e).getSub()),
                 termConverter.convert(((IsaL)e).getSup())
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.ExistC) {
+        if (e instanceof mpei.bkm.model.logic.statement.ExistC) {
             axioms.add(df.getOWLClassAssertionAxiom(
                 termConverter.convert(((ExistC) e).getC()),
                 df.getOWLAnonymousIndividual()
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.ExistL) {
+        if (e instanceof mpei.bkm.model.logic.statement.ExistL) {
             axioms.add(df.getOWLObjectPropertyAssertionAxiom(
                 termConverter.convert(((ExistL) e).getL()),
                 df.getOWLAnonymousIndividual(),
@@ -60,35 +60,35 @@ public class Statement2OWL implements Converter<Statement, Set<OWLAxiom>> {    p
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.EqualC) {
+        if (e instanceof mpei.bkm.model.logic.statement.EqualC) {
             axioms.add(df.getOWLEquivalentClassesAxiom(
                 termConverter.convert(((EqualC) e).getLeft()),
                 termConverter.convert(((EqualC) e).getRight())
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.EqualL) {
+        if (e instanceof mpei.bkm.model.logic.statement.EqualL) {
             axioms.add(df.getOWLEquivalentObjectPropertiesAxiom(
                 termConverter.convert(((EqualL) e).getLeft()),
                 termConverter.convert(((EqualL) e).getRight())
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.EqualP) {
+        if (e instanceof mpei.bkm.model.logic.statement.EqualP) {
             axioms.add(df.getOWLEquivalentClassesAxiom(
                     termConverter.convert(((EqualP) e).getLeft()),
                     termConverter.convert(((EqualP) e).getRight())
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.Each) {
+        if (e instanceof mpei.bkm.model.logic.statement.Each) {
             axioms.add(df.getOWLSubClassOfAxiom(
                 termConverter.convert(((Each) e).getC()),
                 termConverter.convert(((Each) e).getP())
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.Some) {
+        if (e instanceof mpei.bkm.model.logic.statement.Some) {
             axioms.add(df.getOWLClassAssertionAxiom(
                 df.getOWLObjectIntersectionOf(
                     termConverter.convert(((Some) e).getC()),
@@ -98,7 +98,7 @@ public class Statement2OWL implements Converter<Statement, Set<OWLAxiom>> {    p
             ));
         }
 
-        if (e instanceof mpei.bkm.model.lls1.statement.NullC) {
+        if (e instanceof mpei.bkm.model.logic.statement.NullC) {
             axioms.add(df.getOWLEquivalentClassesAxiom(
                 termConverter.convert(((NullC) e).getC()),
                 df.getOWLNothing()
@@ -107,7 +107,7 @@ public class Statement2OWL implements Converter<Statement, Set<OWLAxiom>> {    p
 
         // range D: ⊤ ⊑ ∀p.D
         // domain C: ⊤ ⊑ ∀p-1.C
-        if (e instanceof mpei.bkm.model.lls1.statement.NullL) {
+        if (e instanceof mpei.bkm.model.logic.statement.NullL) {
             axioms.add(df.getOWLObjectPropertyDomainAxiom(
                     termConverter.convert(((NullL) e).getL()),
                     df.getOWLNothing()

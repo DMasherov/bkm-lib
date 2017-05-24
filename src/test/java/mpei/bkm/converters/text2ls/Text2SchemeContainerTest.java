@@ -2,13 +2,13 @@ package mpei.bkm.converters.text2ls;
 
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.converters.text2scheme.Text2SchemeContainer;
-import mpei.bkm.model.lss.datatypespecification.datatypes.PrimitiveDataType;
-import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
-import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
-import mpei.bkm.model.lss.objectspecification.concepttypes.BKMClassType;
-import mpei.bkm.model.lss.objectspecification.concepttypes.ConceptType;
-import mpei.bkm.model.lss.objectspecification.concepttypes.StarConceptType;
-import mpei.bkm.model.lss.objectspecification.concepttypes.UnionConceptType;
+import mpei.bkm.model.structure.datatypespecification.datatypes.PrimitiveDataType;
+import mpei.bkm.model.structure.objectspecification.attributes.ConceptAttribute;
+import mpei.bkm.model.structure.objectspecification.concept.BKMClass;
+import mpei.bkm.model.structure.objectspecification.concepttypes.BKMClassType;
+import mpei.bkm.model.structure.objectspecification.concepttypes.ConceptType;
+import mpei.bkm.model.structure.objectspecification.concepttypes.StarConceptType;
+import mpei.bkm.model.structure.objectspecification.concepttypes.UnionConceptType;
 import mpei.bkm.parsing.structurescheme.SchemeContainer;
 import mpei.bkm.converters.scheme2text.Scheme2Text;
 import org.junit.Assert;
@@ -62,7 +62,7 @@ public class Text2SchemeContainerTest {
 
     @Test
     public void testConvertStudent2Text() throws Exception {
-        String fileContent = FileUtils.readFileToString(new File(ClassLoader.getSystemResource("src/test/resources/Student.ss").getFile()));
+        String fileContent = FileUtils.readFileToString(new File(ClassLoader.getSystemResource("src/test/resources/Student.structure").getFile()));
         String converted = convertToSchemeContainerAndBack(fileContent);
         Assert.assertEquals(fileContent.replaceAll("[ \\t\\r\\n]", ""), converted.replaceAll("[ \\t\\r\\n]", ""));
     }

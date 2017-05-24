@@ -2,7 +2,7 @@ package mpei.bkm.converters.scheme2text;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
-import mpei.bkm.model.lss.objectspecification.concepttypes.*;
+import mpei.bkm.model.structure.objectspecification.concepttypes.*;
 
 public class ConceptType2Text implements Converter<ConceptType,String> {
 

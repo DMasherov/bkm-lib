@@ -1,7 +1,7 @@
 package mpei.bkm.parsing.lls1.mapping;
 
-import mpei.bkm.model.lls1.Expression;
-import mpei.bkm.model.lls1.InnerPart;
+import mpei.bkm.model.commonfeatures.Expression;
+import mpei.bkm.model.commonfeatures.InnerPart;
 
 import java.lang.reflect.Field;
 import java.util.*;

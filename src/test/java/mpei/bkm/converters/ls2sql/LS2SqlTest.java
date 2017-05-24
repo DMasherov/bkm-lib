@@ -1,7 +1,7 @@
 package mpei.bkm.converters.ls2sql;
 
 import mpei.bkm.converters.text2ls.Text2LSOntology;
-import mpei.bkm.model.lls1.LSOntology;
+import mpei.bkm.model.logic.LSOntology;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
