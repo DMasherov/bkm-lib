@@ -3,6 +3,7 @@ package mpei.bkm.converters.text2ls;
 import junit.framework.TestCase;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lls1.LSOntology;
+import mpei.bkm.model.lls1.terms.c.WithAttributes;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ public class Text2LSOntologyTest {
     public void testReadFullOntology() throws Exception {
         LSOntology o = loadOntology("robots.ls");
         TestCase.assertNotNull(o);
-        TestCase.assertEquals(o.getClassesTerms().size(), 4);
+        TestCase.assertEquals(o.getClassesTerms().size(), 8);
         TestCase.assertEquals(o.getBinaryLinksTerms().size(), 1);
         TestCase.assertEquals(o.getStatements().size(), 12);
     }

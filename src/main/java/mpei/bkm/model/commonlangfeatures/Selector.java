@@ -33,4 +33,20 @@ public class Selector {
     public boolean isAtomic() {
         return selects != null && selects.size() == 1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Selector selector = (Selector) o;
+
+        return selects != null ? selects.equals(selector.selects) : selector.selects == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return selects != null ? selects.hashCode() : 0;
+    }
 }
