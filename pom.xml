@@ -67,12 +67,6 @@
             <version>5.1.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.sourceforge.owlapi</groupId>
-            <artifactId>owlapi-distribution</artifactId>
-            <version>5.1.0</version>
-        </dependency>
-
     </dependencies>
 
     <profiles>
