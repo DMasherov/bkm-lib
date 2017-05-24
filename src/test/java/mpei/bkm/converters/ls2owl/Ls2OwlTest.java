@@ -5,8 +5,13 @@ import mpei.bkm.converters.text2ls.Text2LSOntology;
 import mpei.bkm.model.lls1.LSOntology;
 import mpei.bkm.model.lls1.statement.IsaC;
 import mpei.bkm.model.lls1.terms.c.*;
+import mpei.bkm.model.lls1.terms.c.And;
+import mpei.bkm.model.lls1.terms.c.Not;
+import mpei.bkm.model.lls1.terms.c.Or;
+import mpei.bkm.model.lls1.terms.c.WithAttributes;
 import mpei.bkm.model.lls1.terms.p.Each;
 import mpei.bkm.model.lls1.terms.p.Only;
+import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
 import org.apache.commons.io.FileUtils;
@@ -21,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -85,9 +91,11 @@ public class Ls2OwlTest {
 
     @Test
     public void testComplexStatementConversion() throws OWLOntologyCreationException, UnconvertableException {
-        Named C1 = new Named(new BKMClass("C1"));
-        Named C2 = new Named(new BKMClass("C2"));
-        mpei.bkm.model.lls1.terms.l.Named R = new mpei.bkm.model.lls1.terms.l.Named(new BinaryLink("R"));
+        AttributeConstraints emptyConstraints = new AttributeConstraints(Collections.emptyList());
+        WithAttributes C1 = new WithAttributes(new BKMClass("C1"), emptyConstraints);
+        WithAttributes C2 = new WithAttributes(new BKMClass("C2"), emptyConstraints);
+        mpei.bkm.model.lls1.terms.l.WithAttributes R =
+                new mpei.bkm.model.lls1.terms.l.WithAttributes(new BinaryLink("R"), emptyConstraints);
 
         Or orC = new Or(C1, new Those(new Only(R, C2)));
         And andC = new And(orC, new Not(new That(C2, new Each(R, C1))));
@@ -96,7 +104,7 @@ public class Ls2OwlTest {
 
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         OWLOntology owlOntology = manager.createOntology();
-        Statement2OWLConverter statement2OWLConverter = new Statement2OWLConverter(manager, owlOntology);
+        Statement2OWL statement2OWLConverter = new Statement2OWL(manager, owlOntology);
 
         OWLAxiom axiomFromLS = (OWLAxiom) statement2OWLConverter.convert(isa).toArray()[0];
 

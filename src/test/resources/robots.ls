@@ -1,5 +1,8 @@
+// declarations
 Robot[Type: String].
 (Agent linked_to Agent).
+
+// logic
 Robot ISA Agent AND NOT (ControlAgent1 OR ControlAgent2) .
 ControlAgent1 OR ControlAgent2 ISA Agent .
 EXIST Robot(Type='a') .
