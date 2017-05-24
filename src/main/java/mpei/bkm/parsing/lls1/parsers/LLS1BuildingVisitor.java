@@ -4,7 +4,8 @@ import mpei.bkm.model.lls1.Expression;
 import mpei.bkm.model.lls1.LSOntology;
 import mpei.bkm.model.lls1.statement.*;
 import mpei.bkm.model.lls1.terms.c.*;
-import mpei.bkm.model.lls1.terms.l.L;
+import mpei.bkm.model.lls1.terms.c.WithAttributes;
+import mpei.bkm.model.lls1.terms.l.*;
 import mpei.bkm.model.lls1.terms.p.P;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
@@ -15,15 +16,15 @@ import java.util.*;
 public class LLS1BuildingVisitor extends LLS1BaseVisitor {
     private LSOntology ont;
     private List<Expression> expressions = new ArrayList<Expression>();
-    private Set<mpei.bkm.model.lls1.terms.c.Named> namedCTerms = new HashSet<>();
-    private Set<mpei.bkm.model.lls1.terms.l.Named> namedLTerms = new HashSet<>();
+    private Set<WithAttributes> withAttributesCTerms = new HashSet<>();
+    private Set<mpei.bkm.model.lls1.terms.l.WithAttributes> withAttributesLTerms = new HashSet<>();
 
     @Override public LSOntology visitStatements(LLS1Parser.StatementsContext ctx) {
 
         List<Statement> statements = new ArrayList<Statement>();
         expressions = new ArrayList<Expression>();
-        namedCTerms = new HashSet<>();
-        namedLTerms = new HashSet<>();
+        withAttributesCTerms = new HashSet<>();
+        withAttributesLTerms = new HashSet<>();
         ont = new LSOntology("", new HashSet<Statement>());
 
         // visit each statement an create the list of statements by visiting statements
@@ -33,8 +34,8 @@ public class LLS1BuildingVisitor extends LLS1BaseVisitor {
             statements.add(s);
         }
         ont.getStatements().addAll(statements);
-        ont.getClassesTerms().addAll(namedCTerms);
-        ont.getBinaryLinksTerms().addAll(namedLTerms);
+        ont.getClassesTerms().addAll(withAttributesCTerms);
+        ont.getBinaryLinksTerms().addAll(withAttributesLTerms);
         ont.getExprMap().putAll(ExprMapping.makeReferenceMap(expressions));
         return ont;
     }
@@ -69,11 +70,11 @@ public class LLS1BuildingVisitor extends LLS1BaseVisitor {
         expressions.add(k);
         return k;
     }
-    @Override public mpei.bkm.model.lls1.terms.c.Named visitNamedC(LLS1Parser.NamedCContext ctx) {
+    @Override public WithAttributes visitNamedC(LLS1Parser.NamedCContext ctx) {
         String name = ctx.getText();
         BKMClass bkmClass = new BKMClass(name);
-        mpei.bkm.model.lls1.terms.c.Named classTerm = new mpei.bkm.model.lls1.terms.c.Named(bkmClass);
-        namedCTerms.add(classTerm);
+        WithAttributes classTerm = new WithAttributes(bkmClass, null);
+        withAttributesCTerms.add(classTerm);
         return classTerm;
     }
     @Override public Those visitThoseC(LLS1Parser.ThoseCContext ctx) {
@@ -89,11 +90,11 @@ public class LLS1BuildingVisitor extends LLS1BaseVisitor {
         expressions.add(k);
         return k;
     }
-    @Override public mpei.bkm.model.lls1.terms.l.Named visitNamedL(LLS1Parser.NamedLContext ctx) {
+    @Override public mpei.bkm.model.lls1.terms.l.WithAttributes visitNamedL(LLS1Parser.NamedLContext ctx) {
         String name = ctx.getText();
         BinaryLink link = new BinaryLink(name);
-        mpei.bkm.model.lls1.terms.l.Named linkTerm = new mpei.bkm.model.lls1.terms.l.Named(link);
-        namedLTerms.add(linkTerm);
+        mpei.bkm.model.lls1.terms.l.WithAttributes linkTerm = new mpei.bkm.model.lls1.terms.l.WithAttributes(link, null);
+        withAttributesLTerms.add(linkTerm);
         return linkTerm;
     }
     @Override public L visitBracketedL(LLS1Parser.BracketedLContext ctx) {

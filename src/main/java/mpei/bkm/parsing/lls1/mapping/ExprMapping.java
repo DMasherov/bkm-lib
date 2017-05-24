@@ -22,7 +22,7 @@ public class ExprMapping {
         Map<Expression, List<Expression>> erefmap = new HashMap<Expression, List<Expression>>();
         for (Expression e : expressions) {
             if (!erefmap.containsKey(e)) {
-                erefmap.put(e, new ArrayList<Expression>());
+                erefmap.put(e, new ArrayList<>());
             }
             for (Expression oe : expressions) {
                 if (e.equals(oe)) continue;
@@ -43,7 +43,7 @@ public class ExprMapping {
      * @return list of inner parts
      */
     private static List<Expression> inner(Expression e) {
-        List<Expression> inner = new ArrayList<Expression>();
+        List<Expression> inner = new ArrayList<>();
         try {
             for (Field f : e.getClass().getDeclaredFields()) {
                 if (f.isAnnotationPresent(InnerPart.class) && Expression.class.isAssignableFrom(f.getType())) {

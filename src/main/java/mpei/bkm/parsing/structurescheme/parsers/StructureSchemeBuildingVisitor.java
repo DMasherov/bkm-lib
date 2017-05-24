@@ -4,7 +4,7 @@ package mpei.bkm.parsing.structurescheme.parsers;
 import mpei.bkm.model.commonlangfeatures.Selector;
 import mpei.bkm.model.lss.Attribute;
 import mpei.bkm.model.lss.datatypespecification.datatypes.*;
-import mpei.bkm.model.lss.objectspecification.attributeconditions.*;
+import mpei.bkm.model.lss.objectspecification.attributeconstraints.*;
 import mpei.bkm.model.lss.objectspecification.attributes.DataTypeAttribute;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.model.lss.objectspecification.concept.Concept;
@@ -18,7 +18,7 @@ import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.ConceptAttribute
 import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.DataTypeAttributePositioning;
 import mpei.bkm.parsing.structurescheme.parsers.schemeparseinfo.Positioning;
 import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
-import mpei.bkm.model.lss.objectspecification.attributeconditions.BaseAttributeCondition;
+import mpei.bkm.model.lss.objectspecification.attributeconstraints.AttributeConstraints;
 import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
 import mpei.bkm.model.lss.objectspecification.intervalrestrictions.StarAtomRestriction;
 import mpei.bkm.model.structurescheme.Scheme;
@@ -163,14 +163,14 @@ public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<O
         }
         return new Selector(values);
     }
-    @Override public ElementaryAttributeCondition.BinaryOperator visitBinaryOperator(@NotNull StructureSchemeParser.BinaryOperatorContext ctx) {
-        ElementaryAttributeCondition.BinaryOperator binaryoperator = null;
-        if (ctx.EQ() != null) binaryoperator = ElementaryAttributeCondition.BinaryOperator.EQ;
-        if (ctx.NOTEQ() != null) binaryoperator = ElementaryAttributeCondition.BinaryOperator.NOTEQ;
-        if (ctx.GE() != null) binaryoperator = ElementaryAttributeCondition.BinaryOperator.GE;
-        if (ctx.GT() != null) binaryoperator = ElementaryAttributeCondition.BinaryOperator.GT;
-        if (ctx.LE() != null) binaryoperator = ElementaryAttributeCondition.BinaryOperator.LE;
-        if (ctx.LT() != null) binaryoperator = ElementaryAttributeCondition.BinaryOperator.LT;
+    @Override public ElementaryAttributeConstraint.BinaryOperator visitBinaryOperator(@NotNull StructureSchemeParser.BinaryOperatorContext ctx) {
+        ElementaryAttributeConstraint.BinaryOperator binaryoperator = null;
+        if (ctx.EQ() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.EQ;
+        if (ctx.NOTEQ() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.NOTEQ;
+        if (ctx.GE() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.GE;
+        if (ctx.GT() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.GT;
+        if (ctx.LE() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.LE;
+        if (ctx.LT() != null) binaryoperator = ElementaryAttributeConstraint.BinaryOperator.LT;
         return binaryoperator;
     }
     @Override public AtomRestriction visitAtomRestriction(@NotNull StructureSchemeParser.AtomRestrictionContext ctx) {
@@ -207,20 +207,20 @@ public class StructureSchemeBuildingVisitor extends StructureSchemeBaseVisitor<O
         }
         return new IntervalRestriction(left,right);
     }
-    @Override public ElementaryAttributeCondition visitElementaryAttributeCondition(@NotNull StructureSchemeParser.ElementaryAttributeConditionContext ctx) {
-        return new ElementaryAttributeCondition((Selector)visit(ctx.selector(0)), (ElementaryAttributeCondition.BinaryOperator) visit(ctx.binaryOperator()),(Selector)visit(ctx.selector(1)));
+    @Override public ElementaryAttributeConstraint visitElementaryAttributeCondition(@NotNull StructureSchemeParser.ElementaryAttributeConditionContext ctx) {
+        return new ElementaryAttributeConstraint((Selector)visit(ctx.selector(0)), (ElementaryAttributeConstraint.BinaryOperator) visit(ctx.binaryOperator()),(Selector)visit(ctx.selector(1)));
     }
-    @Override public BaseAttributeCondition visitBaseAttributeCondition(@NotNull StructureSchemeParser.BaseAttributeConditionContext ctx) {
-        List<ElementaryAttributeCondition> elementaryAttributeConditions = new ArrayList<ElementaryAttributeCondition>();
+    @Override public AttributeConstraints visitBaseAttributeCondition(@NotNull StructureSchemeParser.BaseAttributeConditionContext ctx) {
+        List<ElementaryAttributeConstraint> elementaryAttributeConditions = new ArrayList<ElementaryAttributeConstraint>();
         for (StructureSchemeParser.ElementaryAttributeConditionContext elementaryAttributeCondition : ctx.elementaryAttributeCondition()) {
-            elementaryAttributeConditions.add((ElementaryAttributeCondition)visit(elementaryAttributeCondition));
+            elementaryAttributeConditions.add((ElementaryAttributeConstraint)visit(elementaryAttributeCondition));
         }
-        return new BaseAttributeCondition(elementaryAttributeConditions);
+        return new AttributeConstraints(elementaryAttributeConditions);
     }
 
     @Override public ClassAttributeCondition visitClassAttributeCondition(@NotNull StructureSchemeParser.ClassAttributeConditionContext ctx) {
-        BaseAttributeCondition baseAttributeCondition = ctx.baseAttributeCondition() == null ? null : (BaseAttributeCondition) visit(ctx.baseAttributeCondition());
-        return new ClassAttributeCondition((ConceptAttribute)visit(ctx.conceptAttribute()), baseAttributeCondition);
+        AttributeConstraints attributeConstraints = ctx.baseAttributeCondition() == null ? null : (AttributeConstraints) visit(ctx.baseAttributeCondition());
+        return new ClassAttributeCondition((ConceptAttribute)visit(ctx.conceptAttribute()), attributeConstraints);
     }
     @Override public BinaryLink visitBinaryLinkSentence(@NotNull StructureSchemeParser.BinaryLinkSentenceContext ctx) {
         return new BinaryLink(
