@@ -10,11 +10,11 @@ import mpei.bkm.model.structurescheme.Scheme;
  *
  * @see Scheme
  */
-public class Scheme2TextConverter implements Converter<Scheme,String> {
+public class Scheme2Text implements Converter<Scheme,String> {
     @Override
     public String convert(Scheme scheme) throws UnconvertableException {
         StringBuffer sb = new StringBuffer("SCHEME '" + scheme.getName() + "':");
-        Concept2TextConverter concept2TextConverter = new Concept2TextConverter();
+        Concept2Text concept2TextConverter = new Concept2Text();
         for (Concept c : scheme.getConceptSet()) {
             sb.append(System.getProperty("line.separator")).append(concept2TextConverter.convert(c)).append(".");
         }

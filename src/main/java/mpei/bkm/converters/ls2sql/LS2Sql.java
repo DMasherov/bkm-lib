@@ -1,6 +1,7 @@
-package mpei.bkm.converters.scheme2sql;
+package mpei.bkm.converters.ls2sql;
 
 import mpei.bkm.converters.Converter;
+import mpei.bkm.model.lls1.LSOntology;
 import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.Attribute;
@@ -19,7 +20,7 @@ import java.util.*;
  * Each BKM class and link are converted to a <code>CREATE TABLE</code> statement.
  * @see SchemeContainer
  */
-public class Scheme2SqlConverter implements Converter<SchemeContainer,String> {
+public class LS2Sql implements Converter<LSOntology, String> {
     public static Map<Enum,String> primitiveDataType2SqlType = new HashMap<Enum, String>();
     static {
         primitiveDataType2SqlType.put(PrimitiveDataType.PRIMITIVEDATATYPE.Integer, "integer");
@@ -34,11 +35,9 @@ public class Scheme2SqlConverter implements Converter<SchemeContainer,String> {
     }
 
     @Override
-    public String convert(SchemeContainer schemeContainer) throws UnconvertableException {
-        SchemeCollections collections = schemeContainer.getCollections();
-
-        Set<BKMClass> BKMClassSet =  collections.allDeclaredBKMClasses;
-        Set<BinaryLink> relSet =  collections.allDeclaredBinaryLinks;
+    public String convert(LSOntology lsOnt) throws UnconvertableException {
+        Set<BKMClass> BKMClassSet =  lsOnt.getClasses();
+        Set<BinaryLink> relSet =  lsOnt.getBinaryLinks();
         StringBuffer script = new StringBuffer();
         StringBuffer alterScript = new StringBuffer();
         StringBuffer enumScripts = new StringBuffer();

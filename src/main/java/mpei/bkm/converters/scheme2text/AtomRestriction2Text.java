@@ -9,7 +9,7 @@ import mpei.bkm.model.lss.objectspecification.intervalrestrictions.number.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AtomRestriction2TextConverter implements Converter<AtomRestriction,String> {
+public class AtomRestriction2Text implements Converter<AtomRestriction,String> {
     static Map<Class<? extends AtomRestriction>,String> AtomNumberSymbolTable;
     static {
         AtomNumberSymbolTable = new HashMap<Class<? extends AtomRestriction>, String>();

@@ -6,7 +6,7 @@ import mpei.bkm.model.lss.Attribute;
 
 import java.util.List;
 
-public class Attributes2TextConverter implements Converter<List<? extends Attribute>,String> {
+public class Attributes2Text implements Converter<List<? extends Attribute>,String> {
     @Override
     public String convert(List<? extends Attribute> attributes) throws UnconvertableException {
         if (attributes == null) {
@@ -14,7 +14,7 @@ public class Attributes2TextConverter implements Converter<List<? extends Attrib
         }
         StringBuffer sb = new StringBuffer();
         if (attributes.size() > 0) {
-            Attribute2TextConverter attribute2TextConverter = new Attribute2TextConverter();
+            Attribute2Text attribute2TextConverter = new Attribute2Text();
             boolean first = true;
             sb.append("[");
             for (Attribute attribute : attributes) {

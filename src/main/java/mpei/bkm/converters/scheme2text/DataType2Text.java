@@ -5,14 +5,14 @@ import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.datatypespecification.datatypes.*;
 import org.apache.commons.lang.StringUtils;
 
-public class DataType2TextConverter implements Converter<DataType, String> {
+public class DataType2Text implements Converter<DataType, String> {
 
     @Override
     public String convert(DataType dataType) throws UnconvertableException {
         if (dataType instanceof PrimitiveDataType) {
             return ((PrimitiveDataType) dataType).getType().name();
         }
-        DataType2TextConverter dataType2TextConverter = new DataType2TextConverter();
+        DataType2Text dataType2TextConverter = new DataType2Text();
         if (dataType instanceof UnionDataType) {
             return dataType2TextConverter.convert(((UnionDataType) dataType).getLeft()) +
                     "|" + dataType2TextConverter.convert(((UnionDataType) dataType).getRight());

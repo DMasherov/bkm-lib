@@ -5,7 +5,7 @@ import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lls1.terms.Term;
 import mpei.bkm.model.lls1.terms.c.*;
 import mpei.bkm.model.lls1.terms.c.And;
-import mpei.bkm.model.lls1.terms.c.Named;
+import mpei.bkm.model.lls1.terms.c.WithAttributes;
 import mpei.bkm.model.lls1.terms.c.Not;
 import mpei.bkm.model.lls1.terms.c.Or;
 import mpei.bkm.model.lls1.terms.l.*;
@@ -15,12 +15,12 @@ import mpei.bkm.model.lls1.terms.p.P;
 import mpei.bkm.model.lls1.terms.p.Some;
 import org.semanticweb.owlapi.model.*;
 
-public class Term2OWLAxiomConverter implements Converter<Term, OWLClassExpression> {
+public class Term2OWL implements Converter<Term, OWLClassExpression> {
     private OWLOntologyManager manager;
     private OWLOntology owlOntology;
     private OWLDataFactory df;
 
-    public Term2OWLAxiomConverter(OWLOntologyManager manager, OWLOntology owlOntology) {
+    public Term2OWL(OWLOntologyManager manager, OWLOntology owlOntology) {
         this.manager = manager;
         this.owlOntology = owlOntology;
         this.df = manager.getOWLDataFactory();
@@ -36,8 +36,8 @@ public class Term2OWLAxiomConverter implements Converter<Term, OWLClassExpressio
     }
 
     public OWLClassExpression convert(C c) throws UnconvertableException {
-        if (c instanceof Named) {
-            return df.getOWLClass(IRI.create(((Named) c).getBkmClass().getName()));
+        if (c instanceof WithAttributes) {
+            return df.getOWLClass(IRI.create(((WithAttributes) c).getBkmClass().getName()));
         }
         if (c instanceof Or) {
             return df.getOWLObjectUnionOf(
@@ -110,8 +110,8 @@ public class Term2OWLAxiomConverter implements Converter<Term, OWLClassExpressio
 
     // TODO refactor when it is clear how to implement "L OR L", "L AND L" and "NOT L"
     public OWLObjectPropertyExpression convert(boolean inverted, L l) throws UnconvertableException {
-        if (l instanceof mpei.bkm.model.lls1.terms.l.Named) {
-            return df.getOWLObjectProperty(IRI.create(((mpei.bkm.model.lls1.terms.l.Named) l).getBinaryLink().getName()));
+        if (l instanceof mpei.bkm.model.lls1.terms.l.WithAttributes) {
+            return df.getOWLObjectProperty(IRI.create(((mpei.bkm.model.lls1.terms.l.WithAttributes) l).getBinaryLink().getName()));
         }
         if (l instanceof mpei.bkm.model.lls1.terms.l.Inv) {
             OWLObjectPropertyExpression ope = convert(!inverted, l);

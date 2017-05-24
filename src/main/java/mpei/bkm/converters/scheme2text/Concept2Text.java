@@ -6,14 +6,14 @@ import mpei.bkm.model.lss.objectspecification.concept.BKMClass;
 import mpei.bkm.model.lss.objectspecification.concept.Concept;
 import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
 
-public class Concept2TextConverter implements Converter<Concept,String> {
+public class Concept2Text implements Converter<Concept,String> {
 
     @Override
     public String convert(Concept concept) throws UnconvertableException {
         if (concept instanceof BKMClass)
-            return (new BKMClass2TextConverter()).convert((BKMClass) concept);
+            return (new BKMClass2Text()).convert((BKMClass) concept);
         else if (concept instanceof BinaryLink)
-            return (new BinaryLink2TextConverter()).convert((BinaryLink) concept);
+            return (new BinaryLink2Text()).convert((BinaryLink) concept);
         throw new UnconvertableException("Unknown type concept");
     }
 }

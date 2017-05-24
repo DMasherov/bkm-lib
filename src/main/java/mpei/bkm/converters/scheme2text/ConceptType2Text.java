@@ -4,14 +4,14 @@ import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.objectspecification.concepttypes.*;
 
-public class ConceptType2TextConverter implements Converter<ConceptType,String> {
+public class ConceptType2Text implements Converter<ConceptType,String> {
 
     @Override
     public String convert(ConceptType conceptType) throws UnconvertableException {
         if (conceptType instanceof BKMClassType) {
             return ((BKMClassType)conceptType).getBKMClass().getName();
         }
-        ConceptType2TextConverter conceptType2TextConverter = new ConceptType2TextConverter();
+        ConceptType2Text conceptType2TextConverter = new ConceptType2Text();
         if (conceptType instanceof UnionConceptType) {
             return conceptType2TextConverter.convert(((UnionConceptType) conceptType).getLeft()) +
                     "|" + conceptType2TextConverter.convert(((UnionConceptType) conceptType).getRight());

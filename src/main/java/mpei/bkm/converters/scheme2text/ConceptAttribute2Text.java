@@ -4,13 +4,13 @@ import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.objectspecification.attributes.ConceptAttribute;
 
-public class ConceptAttribute2TextConverter implements Converter<ConceptAttribute,String> {
+public class ConceptAttribute2Text implements Converter<ConceptAttribute,String> {
     @Override
     public String convert(ConceptAttribute conceptAttribute) throws UnconvertableException {
         if (conceptAttribute == null) {
             return "";
         }
-        ConceptType2TextConverter conceptType2TextConverter = new ConceptType2TextConverter();
+        ConceptType2Text conceptType2TextConverter = new ConceptType2Text();
         String typeString = conceptType2TextConverter.convert(conceptAttribute.getType());
         if (conceptAttribute.getName().equals(typeString))
             return conceptAttribute.getName();

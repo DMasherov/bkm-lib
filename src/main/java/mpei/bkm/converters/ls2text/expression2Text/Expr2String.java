@@ -4,6 +4,7 @@ import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lls1.Expression;
 import mpei.bkm.model.lls1.terms.c.*;
+import mpei.bkm.model.lls1.terms.c.WithAttributes;
 
 public class Expr2String implements Converter<Expression, String> {
 
@@ -27,11 +28,11 @@ public class Expr2String implements Converter<Expression, String> {
 
     private StringBuffer ettid(StringBuffer sb, Expression e) {
         if (simple) {
-            if (e instanceof mpei.bkm.model.lls1.terms.c.Named) {
-                return sb.append(((mpei.bkm.model.lls1.terms.c.Named) e).getBkmClass().getName());
+            if (e instanceof WithAttributes) {
+                return sb.append(((WithAttributes) e).getBkmClass().getName());
             }
-            if (e instanceof mpei.bkm.model.lls1.terms.l.Named) {
-                return sb.append(((mpei.bkm.model.lls1.terms.l.Named) e).getBinaryLink().getName());
+            if (e instanceof mpei.bkm.model.lls1.terms.l.WithAttributes) {
+                return sb.append(((mpei.bkm.model.lls1.terms.l.WithAttributes) e).getBinaryLink().getName());
             }
 
             return sb.append(idWithType(e));
@@ -42,7 +43,7 @@ public class Expr2String implements Converter<Expression, String> {
     private StringBuffer ett(StringBuffer sb, Expression e) {
         if (e instanceof mpei.bkm.model.lls1.terms.c.And) return ett(sb, (mpei.bkm.model.lls1.terms.c.And) e);
         if (e instanceof ConceptVariable) return ett(sb, (ConceptVariable) e);
-        if (e instanceof mpei.bkm.model.lls1.terms.c.Named) return ett(sb, (mpei.bkm.model.lls1.terms.c.Named) e);
+        if (e instanceof WithAttributes) return ett(sb, (WithAttributes) e);
         if (e instanceof mpei.bkm.model.lls1.terms.c.Not) return ett(sb, (mpei.bkm.model.lls1.terms.c.Not) e);
         if (e instanceof mpei.bkm.model.lls1.terms.c.Or) return ett(sb, (mpei.bkm.model.lls1.terms.c.Or) e);
         if (e instanceof mpei.bkm.model.lls1.terms.c.That) return ett(sb, (mpei.bkm.model.lls1.terms.c.That) e);
@@ -50,7 +51,7 @@ public class Expr2String implements Converter<Expression, String> {
 
         if (e instanceof mpei.bkm.model.lls1.terms.l.And) return ett(sb, (mpei.bkm.model.lls1.terms.l.And) e);
         if (e instanceof mpei.bkm.model.lls1.terms.l.Inv) return ett(sb, (mpei.bkm.model.lls1.terms.l.Inv) e);
-        if (e instanceof mpei.bkm.model.lls1.terms.l.Named) return ett(sb, (mpei.bkm.model.lls1.terms.l.Named) e);
+        if (e instanceof mpei.bkm.model.lls1.terms.l.WithAttributes) return ett(sb, (mpei.bkm.model.lls1.terms.l.WithAttributes) e);
         if (e instanceof mpei.bkm.model.lls1.terms.l.Not) return ett(sb, (mpei.bkm.model.lls1.terms.l.Not) e);
         if (e instanceof mpei.bkm.model.lls1.terms.l.Or) return ett(sb, (mpei.bkm.model.lls1.terms.l.Or) e);
 
@@ -94,7 +95,7 @@ public class Expr2String implements Converter<Expression, String> {
         ettid(sb, c.getC());
         return sb;
     }
-    private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.terms.c.Named c) {
+    private StringBuffer ett(StringBuffer sb, WithAttributes c) {
         sb.append(c.getBkmClass().getName());
         return sb;
     }
@@ -132,7 +133,7 @@ public class Expr2String implements Converter<Expression, String> {
         ettid(sb, l.getL());
         return sb;
     }
-    private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.terms.l.Named l) {
+    private StringBuffer ett(StringBuffer sb, mpei.bkm.model.lls1.terms.l.WithAttributes l) {
         sb.append(l.getBinaryLink().getName());
         return sb;
     }

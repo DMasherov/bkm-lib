@@ -33,10 +33,10 @@ public class LSOntology2OWLOntology implements Converter<LSOntology, OWLOntology
             OWLOntology ont = manager.createOntology(ontIRI);
 
             // TODO: actually declaring classes and axioms explicitly is redundant since owlapi declares classes itself
-            Concepts2OWLConverter conceptsConverter = new Concepts2OWLConverter(manager, ont);
+            Concepts2OWL conceptsConverter = new Concepts2OWL(manager, ont);
             ont.addAxioms(conceptsConverter.convert(lsOnt));
 
-            Statement2OWLConverter statementConverter = new Statement2OWLConverter(manager, ont);
+            Statement2OWL statementConverter = new Statement2OWL(manager, ont);
             for (Statement s : lsOnt.getStatements()) {
                 ont.addAxioms(statementConverter.convert(s));
             }

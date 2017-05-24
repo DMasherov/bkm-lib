@@ -4,7 +4,7 @@ import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.objectspecification.concept.BinaryLink;
 
-public class BinaryLink2TextConverter implements Converter<BinaryLink,String> {
+public class BinaryLink2Text implements Converter<BinaryLink,String> {
 
     @Override
     public String convert(BinaryLink binaryLink) throws UnconvertableException {
@@ -12,9 +12,9 @@ public class BinaryLink2TextConverter implements Converter<BinaryLink,String> {
             return "";
         }
         StringBuffer sb = new StringBuffer();
-        Attributes2TextConverter attributes2TextConverter = new Attributes2TextConverter();
-        ClassAttributeCondition2TextConverter classAttributeCondition2TextConverter = new ClassAttributeCondition2TextConverter();
-        IntervalRestriction2TextConverter intervalRestriction2TextConverter = new IntervalRestriction2TextConverter();
+        Attributes2Text attributes2TextConverter = new Attributes2Text();
+        ClassAttributeCondition2Text classAttributeCondition2TextConverter = new ClassAttributeCondition2Text();
+        IntervalRestriction2Text intervalRestriction2TextConverter = new IntervalRestriction2Text();
         sb.append("(");
         sb.append(classAttributeCondition2TextConverter.convert(binaryLink.getLeft())).append(" ");
         sb.append(binaryLink.getName());

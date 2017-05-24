@@ -4,10 +4,10 @@ import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.lss.objectspecification.attributes.DataTypeAttribute;
 
-public class DataTypeAttribute2TextConverter implements Converter<DataTypeAttribute,String> {
+public class DataTypeAttribute2Text implements Converter<DataTypeAttribute,String> {
     @Override
     public String convert(DataTypeAttribute dataTypeAttribute) throws UnconvertableException {
-        DataType2TextConverter dataType2TextConverter = new DataType2TextConverter();
+        DataType2Text dataType2TextConverter = new DataType2Text();
         return dataTypeAttribute.getName() + ":" + dataType2TextConverter.convert(dataTypeAttribute.getType());
     }
 }

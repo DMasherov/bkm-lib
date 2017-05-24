@@ -11,11 +11,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Statement2OWLConverter implements Converter<Statement, Set<OWLAxiom>> {    private OWLOntologyManager manager;
+public class Statement2OWL implements Converter<Statement, Set<OWLAxiom>> {    private OWLOntologyManager manager;
     private OWLOntology owlOntology;
     private OWLDataFactory df;
 
-    public Statement2OWLConverter(OWLOntologyManager manager, OWLOntology owlOntology) {
+    public Statement2OWL(OWLOntologyManager manager, OWLOntology owlOntology) {
         this.manager = manager;
         this.owlOntology = owlOntology;
         this.df = manager.getOWLDataFactory();
@@ -30,7 +30,7 @@ public class Statement2OWLConverter implements Converter<Statement, Set<OWLAxiom
             throw new IllegalStateException("Not yet implemented");
 
         Set<OWLAxiom> axioms = new HashSet<>();
-        Term2OWLAxiomConverter termConverter = new Term2OWLAxiomConverter(manager, owlOntology);
+        Term2OWL termConverter = new Term2OWL(manager, owlOntology);
         if (e instanceof mpei.bkm.model.lls1.statement.IsaC) {
             axioms.add(df.getOWLSubClassOfAxiom(
                 termConverter.convert(((IsaC) e).getSub()),

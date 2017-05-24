@@ -24,7 +24,7 @@ import java.util.Map;
  *
  * @see Scheme
  */
-public class Text2SchemeContainerConverter implements Converter<String,SchemeContainer> {
+public class Text2SchemeContainer implements Converter<String,SchemeContainer> {
 
     private SchemeContainer schemeContainer;
     private List<String> errors;
