@@ -27,7 +27,7 @@ public class Statement2OWL implements Converter<Statement, Set<OWLAxiom>> {    p
                 || e instanceof mpei.bkm.model.logic.statement.Imp
                 || e instanceof mpei.bkm.model.logic.statement.Not
                 || e instanceof mpei.bkm.model.logic.statement.Or)
-            throw new IllegalStateException("Not yet implemented");
+            throw new UnconvertableException("Not yet implemented");
 
         Set<OWLAxiom> axioms = new HashSet<>();
         Term2OWL termConverter = new Term2OWL(manager, owlOntology);
