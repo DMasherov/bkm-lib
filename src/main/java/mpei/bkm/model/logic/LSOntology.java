@@ -101,7 +101,7 @@ public class LSOntology {
                     BKMClass classOfAttribute = ((BKMClassType) a.getType()).getBKMClass();
                     if (!classNames.containsKey(classOfAttribute.getName())) {
                         undeclaredClasses.add(
-                                new Undeclared<>(classOfAttribute.getName(), classOfAttribute)
+                                new Undeclared<>(classOfAttribute.getName(), (BKMClass)c)
                         );
                     }
                 }
