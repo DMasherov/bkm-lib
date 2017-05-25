@@ -72,6 +72,7 @@ public class Ls2OwlTest {
             "ClassAssertion(ObjectUnionOf(<D> ObjectSomeValuesFrom(<related_to> <B>)) _:skolem)\n" +
             ")";
 
+
     protected OWLOntology textLS2OWLOntology(String lsText) throws UnconvertableException, NoSuchFieldException, IllegalAccessException {
         Text2LSOntology converter = new Text2LSOntology();
         LSOntology lsOnt = converter.convert(lsText);
@@ -176,5 +177,22 @@ public class Ls2OwlTest {
         Assert.assertEquals(TBoxAxioms.size(), convertedToOWL.getTBoxAxioms(Imports.EXCLUDED).size());
 
         Assert.assertEquals(TBoxAxioms, convertedToOWL.getTBoxAxioms(Imports.EXCLUDED));
+    }
+
+    @Test
+    public void testReadNoAttributesComplex()  throws
+            OWLOntologyStorageException, NoSuchFieldException, IOException,
+            IllegalAccessException, OWLOntologyCreationException {
+
+        try {
+            String textNoAttributesOnt = FileUtils.readFileToString(
+                    new File(ClassLoader.getSystemResource("steamroller.ls").getFile()));
+            OWLOntology convertedToOWL = textLS2OWLOntology(textNoAttributesOnt);
+        }
+        catch (UnconvertableException e) {
+            Assert.assertEquals(2, e.getReasons().size());
+            return;
+        }
+        Assert.fail("Should throw unconvertable exception");
     }
 }
