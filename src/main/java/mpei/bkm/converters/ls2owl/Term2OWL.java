@@ -32,7 +32,7 @@ public class Term2OWL implements Converter<Term, OWLClassExpression> {
             return convert((C)term);
         if (term instanceof P)
             return convert((P)term);
-        throw new UnconvertableException("Unrecognized term " + term.toString());
+        throw new UnconvertableException("Unrecognized term " + term.getClass().getSimpleName());
     }
 
     public OWLClassExpression convert(C c) throws UnconvertableException {
@@ -61,7 +61,7 @@ public class Term2OWL implements Converter<Term, OWLClassExpression> {
         if (c instanceof Those) {
             return convert(((Those) c).getP());
         }
-        throw new UnconvertableException("Unrecognized c-term " + c.toString());
+        throw new UnconvertableException("Unrecognized c-term " + c.getClass().getSimpleName());
     }
 
     public OWLClassExpression convert(P p) throws UnconvertableException {
@@ -101,7 +101,7 @@ public class Term2OWL implements Converter<Term, OWLClassExpression> {
             return df.getOWLObjectComplementOf(convert(((mpei.bkm.model.logic.terms.p.Not) p).getNot()));
         }
 
-        throw new UnconvertableException("Unrecognized p-term " + p.toString());
+        throw new UnconvertableException("Unrecognized p-term " + p.getClass().getSimpleName());
     }
 
     public OWLObjectPropertyExpression convert(L l) throws UnconvertableException {
@@ -123,7 +123,7 @@ public class Term2OWL implements Converter<Term, OWLClassExpression> {
         if (l instanceof mpei.bkm.model.logic.terms.l.Or
                 || l instanceof mpei.bkm.model.logic.terms.l.And
                 || l instanceof mpei.bkm.model.logic.terms.l.Not)
-            throw new UnconvertableException(l.toString() + " cannot be implemented in OWL");
-        throw new UnconvertableException("Unrecognized l-term " + l.toString());
+            throw new UnconvertableException("\"OR\", \"AND\" and \"NOT\" l-terms cannot be implemented in OWL");
+        throw new UnconvertableException("Unrecognized l-term " + l.getClass().getSimpleName());
     }
 }
