@@ -1,6 +1,5 @@
 package mpei.bkm.converters.text2ls;
 
-import junit.framework.TestCase;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.logic.LSOntology;
 import org.apache.commons.io.FileUtils;
@@ -15,26 +14,26 @@ public class Text2LSOntologyTest {
     @Test
     public void testReadOnlyLogicalSentences() throws Exception {
         LSOntology o = loadOntology("steamroller.ls");
-        TestCase.assertNotNull(o);
-        TestCase.assertEquals(o.getStatements().size(), 20);
+        Assert.assertNotNull(o);
+        Assert.assertEquals(o.getStatements().size(), 20);
     }
 
     @Test
     public void testReadOnlyDeclarations() throws Exception {
         LSOntology o = loadOntology("Student.ss");
-        TestCase.assertNotNull(o);
-        TestCase.assertEquals(o.getStatements().size(), 0);
-        TestCase.assertEquals(o.getClasses().size(), 5);
-        TestCase.assertEquals(o.getBinaryLinks().size(), 7);
+        Assert.assertNotNull(o);
+        Assert.assertEquals(o.getStatements().size(), 0);
+        Assert.assertEquals(o.getClasses().size(), 5);
+        Assert.assertEquals(o.getBinaryLinks().size(), 7);
     }
 
     @Test
     public void testReadFullOntology() throws Exception {
         LSOntology o = loadOntology("robots.ls");
-        TestCase.assertNotNull(o);
-        TestCase.assertEquals(o.getClassesTerms().size(), 8);
-        TestCase.assertEquals(o.getBinaryLinksTerms().size(), 1);
-        TestCase.assertEquals(o.getStatements().size(), 12);
+        Assert.assertNotNull(o);
+        Assert.assertEquals(o.getClassesTerms().size(), 8);
+        Assert.assertEquals(o.getBinaryLinksTerms().size(), 1);
+        Assert.assertEquals(o.getStatements().size(), 12);
     }
 
     @Test
