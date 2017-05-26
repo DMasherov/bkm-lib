@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.logic.LSOntology;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
@@ -34,6 +35,17 @@ public class Text2LSOntologyTest {
         TestCase.assertEquals(o.getClassesTerms().size(), 8);
         TestCase.assertEquals(o.getBinaryLinksTerms().size(), 1);
         TestCase.assertEquals(o.getStatements().size(), 12);
+    }
+
+    @Test
+    public void testIncorrectOntology() throws Exception {
+        try {
+            loadOntology("duplicated_and_undeclared.ss");
+        }
+        catch (UnconvertableException e) {
+            return;
+        }
+        Assert.fail("Should fail with undeclared and duplicated declarations");
     }
 
     protected LSOntology loadOntology(String fileName) throws UnconvertableException, IOException {

@@ -84,6 +84,10 @@ public class LSBuildingVisitor extends LSBaseVisitor {
         }
         BKMClass bkmClass =  new BKMClass(ctx.className().getText(), attrs);
         attrs.stream().forEach(a -> a.setConcept(bkmClass));
+        ont.getClasses().stream()
+            .filter(c -> c.getName().equals(bkmClass.getName()))
+            .findAny()
+            .ifPresent(dup -> ont.getDuplicated().add(dup));
         ont.getClasses().add(bkmClass);
         return bkmClass;
     }
@@ -102,7 +106,10 @@ public class LSBuildingVisitor extends LSBaseVisitor {
                         : (IntervalRestriction) visit(ctx.intervalRestriction()),
                 (ClassAttributeCondition) visit(ctx.classAttributeConstraint(1)),
                 attrs);
-        attrs.stream().forEach(a -> a.setConcept(link));
+        ont.getBinaryLinks().stream()
+                .filter(l -> l.getName().equals(link.getName()))
+                .findAny()
+                .ifPresent(dup -> ont.getDuplicated().add(dup));
         ont.getBinaryLinks().add(link);
         return link;
     }

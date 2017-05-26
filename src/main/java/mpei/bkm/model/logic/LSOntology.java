@@ -25,6 +25,8 @@ public class LSOntology {
     private Set<BinaryLink> binaryLinks = new HashSet<>();
     private Set<Statement> statements = new HashSet<>();
 
+    private Set<Concept> duplicated = new HashSet<>();
+
     // Helper field for navigation between subexpressions
     private Map<Expression,List<Expression>> exprMap = new HashMap<>();
 
@@ -66,6 +68,10 @@ public class LSOntology {
 
     public Set<Statement> getStatements() {
         return statements;
+    }
+
+    public Set<Concept> getDuplicated() {
+        return duplicated;
     }
 
     public Map<Expression, List<Expression>> getExprMap() {

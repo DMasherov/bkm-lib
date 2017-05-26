@@ -61,7 +61,7 @@ public class Ls2OwlTest {
             "FunctionalObjectProperty(<related_to_Name>)\n" +
             "FunctionalDataProperty(<A_Attribute>)\n" +
             "FunctionalDataProperty(<related_to_R>)\n" +
-                    
+
             // A ISA B.
             "SubClassOf(<A> <B>)\n" +
             // EACH A related_to SOME B.

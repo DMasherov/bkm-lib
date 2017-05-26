@@ -4,6 +4,7 @@ import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
 import mpei.bkm.model.logic.LSOntology;
 import mpei.bkm.model.commonfeatures.Undeclared;
+import mpei.bkm.model.structure.objectspecification.concept.Concept;
 import mpei.bkm.parsing.common.BKMParseErrorListener;
 import mpei.bkm.parsing.ls.parsers.LSBuildingVisitor;
 import mpei.bkm.parsing.ls.parsers.LSLexer;
@@ -45,6 +46,14 @@ public class Text2LSOntology implements Converter<String, LSOntology> {
                     .collect(Collectors.toSet());
             throw new UnconvertableException(
                     undeclared.toArray(new String[undeclared.size()]));
+        }
+
+        if (!ont.getDuplicated().isEmpty()) {
+            Set<String> duplicated = ont.getDuplicated().stream()
+                    .map(n -> "Duplicated declaration: " + n.getName())
+                    .collect(Collectors.toSet());
+            throw new UnconvertableException(
+                    duplicated.toArray(new String[duplicated.size()]));
         }
         return ont;
     }
