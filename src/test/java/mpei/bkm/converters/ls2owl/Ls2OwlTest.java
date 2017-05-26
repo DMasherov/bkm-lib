@@ -38,7 +38,9 @@ public class Ls2OwlTest {
             "EACH E related_to ONLY B.\n" +
             "NULL A.\n" +
             "(C THAT related_to SOME A) OR D ISA (A OR B THAT related_to SOME C).\n" +
-            "EXIST (D OR THOSE (related_to SOME B)).";
+            "EXIST (D OR THOSE (related_to SOME B))." +
+            "A[Attribute:String]." +
+            "(C related_to A)[Name:B, R:Boolean].";
 
     protected final String SIMPLE_OWL_ONTOLOGY =
             "Prefix(:=<http://mpei.ru/bkm//2017/5/16/mine#>)\n" +
@@ -56,7 +58,10 @@ public class Ls2OwlTest {
             "Declaration(Class(<D>))\n" +
             "Declaration(Class(<E>))\n" +
             "Declaration(ObjectProperty(<related_to>))\n" +
-
+            "FunctionalObjectProperty(<related_to_Name>)\n" +
+            "FunctionalDataProperty(<A_Attribute>)\n" +
+            "FunctionalDataProperty(<related_to_R>)\n" +
+                    
             // A ISA B.
             "SubClassOf(<A> <B>)\n" +
             // EACH A related_to SOME B.
@@ -145,11 +150,13 @@ public class Ls2OwlTest {
                 convertedToOWL.getClassesInSignature().stream().map(c -> c.getIRI().toString()).collect(Collectors.toSet()),
                 classNames);
 
+        Set<String> objectPropertiesNames = convertedToOWL.getObjectPropertiesInSignature().stream()
+                .map(a -> a.getIRI().toString()).collect(Collectors.toSet());
 
-        Assert.assertEquals(convertedToOWL.getObjectPropertiesInSignature().size(), 1);
-        Assert.assertEquals(
-                convertedToOWL.getObjectPropertiesInSignature().toArray()[0].toString(),
-                "<related_to>");
+        Assert.assertEquals(objectPropertiesNames,
+                new HashSet<>(Arrays.asList("related_to", "related_to_Name")));
+
+        Assert.assertEquals(convertedToOWL.getDataPropertiesInSignature().size(), 2);
 
         Set<OWLAxiom> TBoxAxioms = getTBoxAxioms(SIMPLE_OWL_ONTOLOGY);
 
