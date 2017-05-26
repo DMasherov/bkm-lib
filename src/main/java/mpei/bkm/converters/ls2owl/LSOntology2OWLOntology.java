@@ -11,6 +11,10 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class LSOntology2OWLOntology implements Converter<LSOntology, OWLOntology> {
     private final String ONTOLOGY_URI = "http://mpei.ru/bkm/";
@@ -37,10 +41,23 @@ public class LSOntology2OWLOntology implements Converter<LSOntology, OWLOntology
             ont.addAxioms(conceptsConverter.convert(lsOnt));
 
             Statement2OWL statementConverter = new Statement2OWL(manager, ont);
+            Set<String> failedConversions = new HashSet<>();
             for (Statement s : lsOnt.getStatements()) {
-                ont.addAxioms(statementConverter.convert(s));
+                try {
+                    ont.addAxioms(statementConverter.convert(s));
+                }
+                catch (UnconvertableException e) {
+                    failedConversions.addAll(e.getReasons());
+                }
             }
 
+            if (!failedConversions.isEmpty()) {
+                throw new UnconvertableException(
+                    failedConversions.toArray(
+                            new String[failedConversions.size()]
+                    )
+                );
+            }
             return ont;
         } catch (OWLOntologyCreationException e) {
             throw new UnconvertableException(e);
