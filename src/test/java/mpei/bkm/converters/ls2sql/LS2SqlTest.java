@@ -10,7 +10,9 @@ import java.io.File;
 public class LS2SqlTest {
     @Test
     public void testEquals() throws Exception {
-        String fileContent = FileUtils.readFileToString(new File(ClassLoader.getSystemResource("Student.ss").getFile()));
+        String fileContent = FileUtils.readFileToString(
+            new File(ClassLoader.getSystemResource("Student.ss").getFile()), "UTF-8"
+        );
 
         Text2LSOntology lsConverter = new Text2LSOntology();
 

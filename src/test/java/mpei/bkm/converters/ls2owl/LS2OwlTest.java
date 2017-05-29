@@ -23,7 +23,7 @@ public abstract class LS2OwlTest {
     protected OWLOntology fileLS2OWLOntology(String path)
             throws UnconvertableException, NoSuchFieldException, IllegalAccessException, IOException {
         String ont = FileUtils.readFileToString(
-                new File(ClassLoader.getSystemResource(path).getFile()));
+            new File(ClassLoader.getSystemResource(path).getFile()), "UTF-8");
         return textLS2OWLOntology(ont);
     }
 
@@ -40,7 +40,8 @@ public abstract class LS2OwlTest {
 
     protected Set<OWLAxiom> getTBoxAxiomsFromFile(String path) throws OWLOntologyCreationException, IOException {
         String ont = FileUtils.readFileToString(
-                new File(ClassLoader.getSystemResource(path).getFile()));
+            new File(ClassLoader.getSystemResource(path).getFile()), "UTF-8"
+        );
         return getTBoxAxioms(ont);
     }
     protected Set<OWLAxiom> getTBoxAxioms(String ontText) throws OWLOntologyCreationException {

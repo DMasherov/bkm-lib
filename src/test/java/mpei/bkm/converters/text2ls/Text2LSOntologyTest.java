@@ -49,7 +49,7 @@ public class Text2LSOntologyTest {
 
     protected LSOntology loadOntology(String fileName) throws UnconvertableException, IOException {
         String s = FileUtils.readFileToString(
-                new File(ClassLoader.getSystemResource(fileName).getFile())
+            new File(ClassLoader.getSystemResource(fileName).getFile()), "UTF-8"
         );
         Text2LSOntology converter = new Text2LSOntology();
 
