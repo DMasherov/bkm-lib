@@ -2,9 +2,9 @@ package mpei.bkm.converters.text2ls;
 
 import mpei.bkm.converters.Converter;
 import mpei.bkm.converters.UnconvertableException;
+import mpei.bkm.model.logic.OntologyChecker;
 import mpei.bkm.model.logic.LSOntology;
 import mpei.bkm.model.commonfeatures.Undeclared;
-import mpei.bkm.model.structure.objectspecification.concept.Concept;
 import mpei.bkm.parsing.common.BKMParseErrorListener;
 import mpei.bkm.parsing.ls.parsers.LSBuildingVisitor;
 import mpei.bkm.parsing.ls.parsers.LSLexer;
@@ -40,17 +40,19 @@ public class Text2LSOntology implements Converter<String, LSOntology> {
             throw new UnconvertableException(parseErrors.toArray(new String[parseErrors.size()]));
         }
 
-        if (!ont.getUndeclaredClasses().isEmpty()) {
-            Set<String> undeclared = ont.getUndeclaredClasses().stream()
+        OntologyChecker ontologyChecker = new OntologyChecker(ont);
+
+        if (!ontologyChecker.getUndeclaredClasses().isEmpty()) {
+            Set<String> undeclared = ontologyChecker.getUndeclaredClasses().stream()
                     .map(Undeclared::toString)
                     .collect(Collectors.toSet());
             throw new UnconvertableException(
                     undeclared.toArray(new String[undeclared.size()]));
         }
 
-        if (!ont.getDuplicated().isEmpty()) {
-            Set<String> duplicated = ont.getDuplicated().stream()
-                    .map(n -> "Duplicated declaration: " + n.getName())
+        if (!ontologyChecker.getDuplicated().isEmpty()) {
+            Set<String> duplicated = ontologyChecker.getDuplicated().stream()
+                    .map(n -> "Duplicated declaration: " + n)
                     .collect(Collectors.toSet());
             throw new UnconvertableException(
                     duplicated.toArray(new String[duplicated.size()]));
