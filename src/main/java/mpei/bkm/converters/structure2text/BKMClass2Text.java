@@ -12,9 +12,6 @@ public class BKMClass2Text implements Converter<BKMClass,String> {
         sb.append(BKMClass.getName());
         Attributes2Text attributes2TextConverter = new Attributes2Text();
         sb.append(attributes2TextConverter.convert(BKMClass.getAttributes()));
-        if (BKMClass.getIsa() != null) {
-            sb.append(System.getProperty("line.separator") + BKMClass.getName() + "ISA" + BKMClass.getIsa().getName());
-        }
         return sb.toString();
     }
 }

@@ -20,19 +20,17 @@ public class StructureTypesTest {
 
         ConceptType type3 = new StarConceptType(new BKMClassType(new BKMClass("CLASS")));
         ConceptType type4 = new StarConceptType(new BKMClassType(new BKMClass("CLASS")));
-        ConceptType type5 = new StarConceptType(new BKMClassType(new BKMClass("CLASS",new BKMClass("ISACLASS"))));
-        ConceptType type6 = new UnionConceptType(new BKMClassType(new BKMClass("CLASS")),new BKMClassType(new BKMClass("CLASS")));
+        ConceptType type5 = new UnionConceptType(new BKMClassType(new BKMClass("CLASS")),new BKMClassType(new BKMClass("CLASS")));
 
 
+        ConceptAttribute attribute3 = new ConceptAttribute("ATTR",type4);
         ConceptAttribute attribute1 = new ConceptAttribute("ATTR",type5);
         ConceptAttribute attribute2 = new ConceptAttribute("ATTR",type5);
-        ConceptAttribute attribute3 = new ConceptAttribute("ATTR",type6);
         ConceptAttribute attribute4 = new ConceptAttribute("DIFFERENTNAME_ATTR",type5);
 
         Assert.assertEquals(type1, type2);
         Assert.assertEquals(type3, type4);
         Assert.assertNotSame(type4, type5);
-        Assert.assertNotSame(type4, type6);
         Assert.assertEquals(attribute1, attribute2);
         Assert.assertNotSame(attribute1, attribute3);
         Assert.assertNotSame(attribute1, attribute4);
