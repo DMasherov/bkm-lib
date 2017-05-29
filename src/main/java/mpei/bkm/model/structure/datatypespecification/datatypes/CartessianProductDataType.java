@@ -17,4 +17,21 @@ public class CartessianProductDataType extends DataType {
     public void setTypes(List<DataType> types) {
         this.types = types;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CartessianProductDataType)) return false;
+
+        CartessianProductDataType that = (CartessianProductDataType) o;
+
+        if (types != null ? !types.equals(that.types) : that.types != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return types != null ? types.hashCode() : 0;
+    }
 }

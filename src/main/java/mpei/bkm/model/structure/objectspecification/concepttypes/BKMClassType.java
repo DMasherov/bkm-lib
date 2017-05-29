@@ -13,5 +13,20 @@ public class BKMClassType extends ConceptType {
         return BKMClass;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof BKMClassType)) return false;
 
+        BKMClassType that = (BKMClassType) o;
+
+        if (BKMClass != null ? !BKMClass.equals(that.BKMClass) : that.BKMClass != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return BKMClass != null ? BKMClass.hashCode() : 0;
+    }
 }
